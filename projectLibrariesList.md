@@ -1,6 +1,9 @@
 **Redux Persist**
 npm i redux-persist
 
+**React Redux**
+npm i react-redux
+
 **Redux Toolkit**
 npm i @reduxjs/toolkit
 
