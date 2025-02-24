@@ -2,7 +2,7 @@ import styles from "./loader.module.css";
 
 const Loader = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Loader</h1>
     </div>
   );

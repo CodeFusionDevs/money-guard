@@ -1,12 +1,9 @@
 .container {
-  width: 400px;
-  height: 250px;
-  background-color: rgb(127, 127, 230);
-  border-radius: 10px;
+  width: 250px;
+  height: 400px;
+  display: flex;
+  background-color: #ffbcbc;
   margin: 10px;
+  border-radius: 10px;
   padding: 10px;
-}
-
-.container h1 {
-  font-family: var(--font-family);
 }

@@ -2,7 +2,7 @@ import styles from "./notFoundPage.module.css";
 
 const NotFoundPage = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>NotFoundPage</h1>
     </div>
   );

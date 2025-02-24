@@ -2,7 +2,7 @@ import styles from "./statisticsTable.module.css";
 
 const StatisticsTable = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>StatisticsTable</h1>
     </div>
   );

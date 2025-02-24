@@ -2,7 +2,7 @@ import styles from "./modalAddTransactions.module.css";
 
 const ModalAddTransactions = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>ModalAddTransactions</h1>
     </div>
   );

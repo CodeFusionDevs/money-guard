@@ -2,7 +2,7 @@ import styles from "./transactionsItem.module.css";
 
 const TransactionsItem = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>TransactionsItem</h1>
     </div>
   );

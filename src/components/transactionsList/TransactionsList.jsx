@@ -2,7 +2,7 @@ import styles from "./transactionsList.module.css";
 
 const TransactionsList = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>TransactionsList</h1>
     </div>
   );

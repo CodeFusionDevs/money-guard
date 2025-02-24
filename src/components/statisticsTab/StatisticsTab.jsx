@@ -2,7 +2,7 @@ import styles from "./statisticsTab.module.css";
 
 const StatisticsTab = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>StatisticsTab</h1>
     </div>
   );
