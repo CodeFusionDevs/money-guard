@@ -1,8 +1,8 @@
-import styles from "./registrationPage.module.css";
+import styles from "./RegistrationPage.module.css";
 
 const RegistrationPage = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>RegistrationPage</h1>
     </div>
   );
