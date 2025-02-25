@@ -1,11 +1,7 @@
-import styles from "./RegistrationPage.module.css";
+import { RegistrationForm } from "../../components/registrationForm/RegistrationForm"
 
-const RegistrationPage = () => {
-  return (
-    <div className={styles.container}>
-      <h1>RegistrationPage</h1>
-    </div>
-  );
+export const RegistrationPage = () => {
+  return <RegistrationForm />;
 };
 
 export default RegistrationPage;

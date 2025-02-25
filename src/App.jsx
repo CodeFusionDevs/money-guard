@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import HeaderLayout from "./layout/HeaderLayout";
-import RegisterPage from "./pages/register/RegisterPage";
+import RegisterPage from "./pages/registration/RegistrationPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import NotFoundPage from "./pages/notFound/NotFoundPage";
 
@@ -11,7 +11,6 @@ import NotFoundPage from "./pages/notFound/NotFoundPage";
 function App() {
   return (
     <BrowserRouter>
-      <HeaderLayout />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
