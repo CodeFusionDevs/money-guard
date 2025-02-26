@@ -10,6 +10,8 @@ import Logo from "../../components/common/Logo/Logo";
 import InputFormField from "../InputFormField/InputFormField";
 import { motion } from "framer-motion";
 import styles from "./LoginForm.module.css";
+import { login } from "../../redux/auth/operations";
+
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const initialValues = {
@@ -17,7 +19,8 @@ export const LoginForm = () => {
     password: "",
   };
   const handleSubmit = (values, actions) => {
-    dispatch(signInThunk(values));
+    console.log("Login credentials:", values);
+    dispatch(login(values));
     actions.resetForm();
   };
 

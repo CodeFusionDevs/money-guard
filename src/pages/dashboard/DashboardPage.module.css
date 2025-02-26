@@ -2,6 +2,7 @@
   width: 250px;
   height: 400px;
   display: flex;
+  flex-direction: column;
   background-color: #fa9696;
   margin: 10px;
   border-radius: 10px;

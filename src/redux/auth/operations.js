@@ -37,7 +37,7 @@ const signup = createAsyncThunk(
   async (registerCredentials, thunkAPI) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}/api/auth/signup`,
+        `${BASE_URL}/api/auth/sign-up`,
         registerCredentials
       );
       return response.data;
@@ -52,7 +52,7 @@ const login = createAsyncThunk(
   async (loginCredentials, thunkAPI) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}/api/auth/login`,
+        `${BASE_URL}/api/auth/sign-in`,
         loginCredentials
       );
       return response.data;
@@ -64,7 +64,7 @@ const login = createAsyncThunk(
 
 const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/api/auth/logout`);
+    const response = await axios.delete(`${BASE_URL}/api/auth/sign-out`);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
