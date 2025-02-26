@@ -4,15 +4,15 @@ import { updateToken, clearToken } from "./operations";
 
 const initialState = {
   user: {
-    id: null,
-    name: null,
-    email: null,
-    balance: null,
+    id: "",
+    name: "",
+    email: "",
+    balance: "",
   },
-  token: null,
+  token: "",
   isLoggedIn: false,
   isRefreshing: false,
-  error: null,
+  error: "",
 };
 
 const authSlice = createSlice({

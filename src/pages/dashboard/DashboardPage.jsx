@@ -9,10 +9,11 @@ const DashboardPage = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
+  console.log("In DashboardPage", user);
   return (
     <div className={styles.container}>
       <h1>DashboardPage</h1>
-      <p>Welcome, {user.name}</p>
+      <p>Welcome, {user.name}.</p>
       <button onClick={() => navigate("/login")}>Go to Login</button>
       <button onClick={() => navigate("/register")}>Go to Register</button>
 

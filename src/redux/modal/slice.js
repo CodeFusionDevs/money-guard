@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAddTransactionModalOpen: false,
+  isEditTransactionModalOpen: false,
   isAddCategoryModalOpen: false,
   isEditCategoryModalOpen: false,
   isDeleteTransactionModalOpen: false,
@@ -16,6 +17,12 @@ const modalSlice = createSlice({
     },
     closeAddTransactionModal: (state) => {
       state.isAddTransactionModalOpen = false;
+    },
+    openEditTransactionModal: (state) => {
+      state.isEditTransactionModalOpen = true;
+    },
+    closeEditTransactionModal: (state) => {
+      state.isEditTransactionModalOpen = false;
     },
     openAddCategoryModal: (state) => {
       state.isAddCategoryModalOpen = true;
@@ -47,6 +54,8 @@ export const {
   closeEditCategoryModal,
   openDeleteTransactionModal,
   closeDeleteTransactionModal,
+  openEditTransactionModal,
+  closeEditTransactionModal,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

@@ -8,7 +8,6 @@ import statisticsReducer from "./statistics/slice";
 const persistConfig = {
   key: "Authentication",
   storage,
-  whitelist: ["token"],
 };
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
