@@ -1,4 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  getTransactions,
+  getCategories,
+  createTransaction,
+  editTransaction,
+  deleteTransaction,
+} from "./operations";
 
 const initialState = {
   transactions: [],
@@ -79,3 +86,5 @@ const transactionsSlice = createSlice({
       });
   },
 });
+
+export default transactionsSlice.reducer;
