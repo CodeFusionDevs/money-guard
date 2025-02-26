@@ -10,9 +10,11 @@ import Logo from "../../components/common/Logo/Logo";
 import InputFormField from "../../components/InputFormField/InputFormField";
 import { motion } from "framer-motion";
 import styles from "./RegistrationForm.module.css";
+import { signup } from "../../redux/auth/operations";
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
+
   const initialValues = {
     username: "",
     email: "",
@@ -22,7 +24,7 @@ export const RegistrationForm = () => {
 
   const handleSubmit = (values, actions) => {
     const { username, email, password } = values;
-    dispatch(signUpThunk({ username, email, password }));
+    dispatch(signup({ username, email, password }));
 
     actions.resetForm();
   };

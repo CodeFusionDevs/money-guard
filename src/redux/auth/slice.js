@@ -21,6 +21,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCurrentUser.fulfilled, (state, action) => {
+        console.log("getCurrentUser fulfilled:", action.payload);
         state.user = action.payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
@@ -30,6 +31,7 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
+        console.log("getCurrentUser rejected:", action.payload);
         state.isRefreshing = false;
         state.error = action.payload;
         state.user = {
@@ -43,6 +45,7 @@ const authSlice = createSlice({
         clearToken();
       })
       .addCase(signup.fulfilled, (state, action) => {
+        console.log("signup fulfilled:", action.payload);
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
@@ -54,6 +57,7 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(signup.rejected, (state, action) => {
+        console.log("signup rejected:", action.payload);
         state.isRefreshing = false;
         state.error = action.payload;
         state.user = {
@@ -67,6 +71,7 @@ const authSlice = createSlice({
         clearToken();
       })
       .addCase(login.fulfilled, (state, action) => {
+        console.log("login fulfilled:", action.payload);
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
@@ -78,6 +83,7 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(login.rejected, (state, action) => {
+        console.log("login rejected:", action.payload);
         state.isRefreshing = false;
         state.error = action.payload;
         state.user = {
@@ -91,6 +97,7 @@ const authSlice = createSlice({
         clearToken();
       })
       .addCase(logout.fulfilled, (state) => {
+        console.log("logout fulfilled");
         state.user = {
           id: null,
           name: null,
@@ -105,6 +112,7 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(logout.rejected, (state, action) => {
+        console.log("logout rejected:", action.payload);
         state.isRefreshing = false;
         state.error = action.payload;
         state.user = {
