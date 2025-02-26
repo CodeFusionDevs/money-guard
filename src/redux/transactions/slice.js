@@ -9,7 +9,68 @@ import {
 
 const initialState = {
   transactions: [],
-  transactionCategories: [],
+  transactionCategories: [
+    {
+      id: 1,
+      name: "Income",
+      color: "#0000FF",
+      icon: "💰",
+    },
+    {
+      id: 2,
+      name: "Transportation",
+      color: "#00FF00",
+      icon: "🚗",
+    },
+    {
+      id: 3,
+      name: "Food",
+      color: "#0000FF",
+      icon: "🍔",
+    },
+    {
+      id: 4,
+      name: "Entertainment",
+      color: "#FFFF00",
+      icon: "🎉",
+    },
+    {
+      id: 5,
+      name: "Care",
+      color: "#808080",
+      icon: "💆‍♂️",
+    },
+    {
+      id: 6,
+      name: "Household products",
+      color: "#808080",
+      icon: "🏠",
+    },
+    {
+      id: 7,
+      name: "Education",
+      color: "#808080",
+      icon: "🎓",
+    },
+    {
+      id: 8,
+      name: "Child care",
+      color: "#808080",
+      icon: "👶",
+    },
+    {
+      id: 9,
+      name: "Leisure",
+      color: "#808080",
+      icon: "🎮",
+    },
+    {
+      id: 10,
+      name: "Other expenses",
+      color: "#808080",
+      icon: "💡",
+    },
+  ],
   isLoading: false,
   error: null,
 };
@@ -17,6 +78,23 @@ const initialState = {
 const transactionsSlice = createSlice({
   name: "transactions",
   initialState,
+  reducers: {
+    addTransactionCategory: (state, action) => {
+      const existingCategory = state.transactionCategories.find(
+        (category) => category.id === action.payload.id
+      );
+      if (existingCategory) {
+        existingCategory.name = action.payload.name;
+      } else {
+        state.transactionCategories.push(action.payload);
+      }
+    },
+    deleteTransactionCategory: (state, action) => {
+      state.transactionCategories = state.transactionCategories.filter(
+        (category) => category.id !== action.payload.id
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getTransactions.fulfilled, (state, action) => {
@@ -86,5 +164,8 @@ const transactionsSlice = createSlice({
       });
   },
 });
+
+export const { addTransactionCategory, deleteTransactionCategory } =
+  transactionsSlice.actions;
 
 export default transactionsSlice.reducer;

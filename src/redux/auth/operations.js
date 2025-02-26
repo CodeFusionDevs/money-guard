@@ -4,6 +4,7 @@ import axios from "axios";
 const BASE_URL = "https://wallet.b.goit.study";
 
 // AXIOS SETTINGS
+axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const updateToken = (token) => {
