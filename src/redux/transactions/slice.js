@@ -1,0 +1,171 @@
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  getTransactions,
+  getCategories,
+  createTransaction,
+  editTransaction,
+  deleteTransaction,
+} from "./operations";
+
+const initialState = {
+  transactions: [],
+  transactionCategories: [
+    {
+      id: 1,
+      name: "Income",
+      color: "#0000FF",
+      icon: "💰",
+    },
+    {
+      id: 2,
+      name: "Transportation",
+      color: "#00FF00",
+      icon: "🚗",
+    },
+    {
+      id: 3,
+      name: "Food",
+      color: "#0000FF",
+      icon: "🍔",
+    },
+    {
+      id: 4,
+      name: "Entertainment",
+      color: "#FFFF00",
+      icon: "🎉",
+    },
+    {
+      id: 5,
+      name: "Care",
+      color: "#808080",
+      icon: "💆‍♂️",
+    },
+    {
+      id: 6,
+      name: "Household products",
+      color: "#808080",
+      icon: "🏠",
+    },
+    {
+      id: 7,
+      name: "Education",
+      color: "#808080",
+      icon: "🎓",
+    },
+    {
+      id: 8,
+      name: "Child care",
+      color: "#808080",
+      icon: "👶",
+    },
+    {
+      id: 9,
+      name: "Leisure",
+      color: "#808080",
+      icon: "🎮",
+    },
+    {
+      id: 10,
+      name: "Other expenses",
+      color: "#808080",
+      icon: "💡",
+    },
+  ],
+  isLoading: false,
+  error: null,
+};
+
+const transactionsSlice = createSlice({
+  name: "transactions",
+  initialState,
+  reducers: {
+    addTransactionCategory: (state, action) => {
+      const existingCategory = state.transactionCategories.find(
+        (category) => category.id === action.payload.id
+      );
+      if (existingCategory) {
+        existingCategory.name = action.payload.name;
+      } else {
+        state.transactionCategories.push(action.payload);
+      }
+    },
+    deleteTransactionCategory: (state, action) => {
+      state.transactionCategories = state.transactionCategories.filter(
+        (category) => category.id !== action.payload.id
+      );
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getTransactions.fulfilled, (state, action) => {
+        state.transactions = action.payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(getTransactions.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getTransactions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getCategories.fulfilled, (state, action) => {
+        state.transactionCategories = action.payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(getCategories.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCategories.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(createTransaction.fulfilled, (state, action) => {
+        state.transactions.push(action.payload);
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(createTransaction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(editTransaction.fulfilled, (state, action) => {
+        state.transactions = state.transactions.map((transaction) =>
+          // Burada bi sıkıntı var sanki. Ama yok da gibi.
+          transaction.id === action.payload.id ? action.payload : transaction
+        );
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(editTransaction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteTransaction.fulfilled, (state, action) => {
+        state.transactions = state.transactions.filter(
+          (transaction) => transaction.id !== action.payload.id
+        );
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(deleteTransaction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+  },
+});
+
+export const { addTransactionCategory, deleteTransactionCategory } =
+  transactionsSlice.actions;
+
+export default transactionsSlice.reducer;
