@@ -1,9 +1,129 @@
 .container {
-  width: 250px;
-  height: 400px;
+  width: 100%;
+  height: 60px;
   display: flex;
-  background-color: #ffbcbc;
-  margin: 10px;
-  border-radius: 10px;
-  padding: 10px;
+  justify-content: space-between;
+  box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25),
+    inset 0 -3px 2px 0 rgba(0, 0, 0, 0.1);
+  background: linear-gradient(276deg, #2e1746 3.19%, #2e225f 100%);
+}
+
+.logo {
+  width: 86px;
+  height: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+  margin-top: 12px;
+  /* gap: 2px; */
+}
+.logo p {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--white);
+}
+
+.logo svg {
+  display: block;
+  margin: auto;
+}
+
+.menu {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu p {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  text-align: right;
+  color: var(--white-600);
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border-left: 1px solid var(--white-600);
+  padding-left: 12px;
+  margin-right: 16px;
+}
+
+.menuButton svg {
+  display: block;
+  margin: auto;
+}
+
+.menuButton span {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--white-600);
+  cursor: pointer;
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1280px) {
+  .container {
+    width: 100%;
+    height: 80px;
+    box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25),
+      inset 0 -3px 2px 0 rgba(0, 0, 0, 0.1);
+    background: linear-gradient(276deg, #2e1746 3.19%, #2e225f 100%);
+  }
+  .logo {
+    width: 115px;
+    height: 48px;
+    margin-left: 32px;
+    margin-top: 16px;
+  }
+  .logo svg {
+    width: 25px;
+    height: 23px;
+  }
+
+  .logo p {
+    font-size: 17px;
+  }
+
+  .menuButton span {
+    display: block;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    width: 100%;
+    height: 80px;
+    box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.25),
+      inset 0 -3px 2px 0 rgba(0, 0, 0, 0.1);
+    background: linear-gradient(276deg, #2e1746 3.19%, #2e225f 100%);
+  }
+
+  .logo {
+    width: 115px;
+    height: 48px;
+    margin-left: 16px;
+    margin-top: 16px;
+  }
+
+  .logo svg {
+    width: 25px;
+    height: 23px;
+  }
+
+  .logo p {
+    font-size: 17px;
+  }
+
+  .menuButton span {
+    display: block;
+  }
 }

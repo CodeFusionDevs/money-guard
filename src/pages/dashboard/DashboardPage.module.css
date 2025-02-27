@@ -1,10 +1,9 @@
 .container {
-  width: 250px;
-  height: 400px;
+  height: 80vh;
   display: flex;
   flex-direction: column;
-  background-color: #fa9696;
-  margin: 10px;
+  align-items: center;
+  background-color: #96f89b;
   border-radius: 10px;
-  padding: 10px;
+  margin: 0 auto;
 }
