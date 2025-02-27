@@ -5,7 +5,6 @@ import RegisterPage from "./pages/registration/RegistrationPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import NotFoundPage from "./pages/notFound/NotFoundPage";
 
-
 function App() {
   return (
     <BrowserRouter>
