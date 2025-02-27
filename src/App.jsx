@@ -1,12 +1,10 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
-import HeaderLayout from "./layout/HeaderLayout";
 import RegisterPage from "./pages/registration/RegistrationPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import NotFoundPage from "./pages/notFound/NotFoundPage";
 
-// Sayfalar eklenecek
 
 function App() {
   return (
