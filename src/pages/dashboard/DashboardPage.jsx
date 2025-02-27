@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { selectUser } from "../../redux/auth/selectors";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import HeaderLayout from "../../layout/HeaderLayout";
+import ButtonAddTransactions from "../../components/buttonAddTransactions/ButtonAddTransactions";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ const DashboardPage = () => {
       <button onClick={() => navigate("/register")}>Go to Register</button>
 
       <button onClick={() => dispatch(logout())}>Logout</button>
+
+    <ButtonAddTransactions/>
     </div>
   );
 };
