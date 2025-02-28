@@ -1,12 +1,46 @@
-import styles from "./headerLayout.module.css";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/auth/selectors";
 import { logout } from "../redux/auth/operations";
 import { useDispatch } from "react-redux";
+import Logo from "../components/common/Logo/Logo";
+import FormButton from "../components/common/FormButton/FormButton";
+import { useState, useEffect } from "react";
+import styles from "./headerLayout.module.css";
 
 const HeaderLayout = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleExitClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleLogoutClick = () => {
+    dispatch(logout()); 
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleEscKey);
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+    };
+  }, []);
+  const handleOutsideClick = (event) => {
+    if (event.target === event.currentTarget) {
+      setIsModalOpen(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
@@ -64,7 +98,7 @@ const HeaderLayout = () => {
       </div>
       <div className={styles.menu}>
         <p>{user.username}</p>
-        <div className={styles.menuButton}>
+        <button className={styles.menuButton} onClick={handleExitClick}>
           <svg
             width="18"
             height="18"
@@ -85,13 +119,32 @@ const HeaderLayout = () => {
               </clipPath>
             </defs>
           </svg>
-          <span
-            onClick={() => dispatch(logout())}
-          >
-            Exit
-          </span>
-        </div>
+          <span>Exit</span>
+        </button>
       </div>
+
+      {/* Modal */}
+      
+      {isModalOpen && (
+        <div className={styles.wrapper} onClick={handleOutsideClick}>
+          <div className={styles.modalContent}>
+            <Logo />
+            <p className={styles.text}>Are you sure you want to log out?</p>
+            <div className={styles.modalButtons}>
+              <FormButton
+                text={"Logout"}
+                variant={"multiColorButtton"}
+                handlerFunction={handleLogoutClick}
+              />
+              <FormButton
+                text={"Cancel"}
+                variant={"whiteButtton"}
+                handlerFunction={handleCancelClick}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

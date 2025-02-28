@@ -33,10 +33,8 @@ const Modal = ({ isOpen, onClose }) => {
           category: Yup.string().required("Required*"),
         });
   };
-  
 
   const handleSubmit = (values) => {
-    console.log(values);
     onClose();
   };
 
@@ -46,6 +44,20 @@ const Modal = ({ isOpen, onClose }) => {
       setStartDate(new Date());
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscKey);
+    
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+    };
+  }, [onClose]);
 
   if (!isOpen) return null;
 
@@ -102,29 +114,34 @@ const Modal = ({ isOpen, onClose }) => {
                     }
                     name="category"
                     options={[]} // Kategori seçeneklerini buraya ekleyebilirsiniz
-                    styles={{}} // İstediğiniz özelleştirmeleri buraya ekleyebilirsiniz
+                    styles={{}} // Özelleştirmeleri buraya ekleyebilirsiniz
                   />
                   <ErrorMessage name="category" component="p" />
                 </div>
               )}
 
               <div className={styles.aaa}>
-              {/* Tutar Alanı */}
-              <div className={`${styles.inputField} ${styles.amount}`}>
-                <Field type="number" name="amount" min="1" placeholder="0.00" />
-                <ErrorMessage name="amount" component="p" />
-              </div>
+                {/* Tutar Alanı */}
+                <div className={`${styles.inputField} ${styles.amount}`}>
+                  <Field
+                    type="number"
+                    name="amount"
+                    min="1"
+                    placeholder="0.00"
+                  />
+                  <ErrorMessage name="amount" component="p" />
+                </div>
 
-              {/* Tarih Alanı */}
-              <div className={`${styles.inputField} ${styles.date}`}>
-                <ReactDatePicker
-                  dateFormat="dd.MM.yyyy"
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  maxDate={new Date()}
-                />
-                <FiCalendar className={styles.icon} />
-              </div>
+                {/* Tarih Alanı */}
+                <div className={`${styles.inputField} ${styles.date}`}>
+                  <ReactDatePicker
+                    dateFormat="dd.MM.yyyy"
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    maxDate={new Date()}
+                  />
+                  <FiCalendar className={styles.icon} />
+                </div>
               </div>
               {/* Yorum Alanı */}
               <div className={`${styles.inputField} ${styles.comment}`}>
