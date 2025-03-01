@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FiCalendar } from "react-icons/fi";
