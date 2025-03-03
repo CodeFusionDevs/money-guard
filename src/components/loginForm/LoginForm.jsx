@@ -11,16 +11,19 @@ import InputFormField from "../InputFormField/InputFormField";
 import { motion } from "framer-motion";
 import styles from "./LoginForm.module.css";
 import { login } from "../../redux/auth/operations";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const initialValues = {
     email: "",
     password: "",
   };
   const handleSubmit = (values, actions) => {
     console.log("Login credentials:", values);
-    dispatch(login(values));
+    dispatch(login(values)).unwrap().then(navigate("/dashboard"));
     actions.resetForm();
   };
 

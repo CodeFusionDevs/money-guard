@@ -5,7 +5,7 @@ import { updateToken, clearToken } from "./operations";
 const initialState = {
   user: {
     id: "",
-    name: "",
+    name: "", // Tekrar kontrol et
     email: "",
     balance: "",
   },

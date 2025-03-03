@@ -11,9 +11,11 @@ import InputFormField from "../../components/InputFormField/InputFormField";
 import { motion } from "framer-motion";
 import styles from "./RegistrationForm.module.css";
 import { signup } from "../../redux/auth/operations";
+import { useNavigate } from "react-router-dom";
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const initialValues = {
     username: "",
@@ -24,7 +26,9 @@ export const RegistrationForm = () => {
 
   const handleSubmit = (values, actions) => {
     const { username, email, password } = values;
-    dispatch(signup({ username, email, password }));
+    dispatch(signup({ username, email, password }))
+      .unwrap()
+      .then(navigate("/dashboard"));
 
     actions.resetForm();
   };
