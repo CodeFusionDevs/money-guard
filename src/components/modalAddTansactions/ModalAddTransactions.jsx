@@ -1,173 +1,321 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { FiCalendar } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFilteredCategories } from "../../redux/transactions/selectors";
+import { components } from "react-select";
+import { SlArrowDown, SlArrowUp } from "react-icons/sl";
+import * as yup from "yup";
+import { date } from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, Controller } from "react-hook-form";
+import { useMediaQuery } from "react-responsive";
 import ReactDatePicker from "react-datepicker";
-import FormButton from "../common/FormButton/FormButton";
-import Select from "react-select";
 import "react-datepicker/dist/react-datepicker.css";
-import styles from "./ModalAddTransactions.module.css";
-import icons from "../../images/icons/sprite.svg";
-import * as Yup from "yup";
+import { Header } from "../Dashboard/Header/Header";
+import {
+  CloseBtn,
+  CommentInputStyled,
+  ErrorMessage,
+  InputErrorWrap,
+  StyledSelect,
+  Backdrop,
+  BtnAdd,
+  BtnCancel,
+  ButtonsWrap,
+  CloseModalBtn,
+  Gradient,
+  Form,
+  Input,
+  Modal,
+  Title,
+  WrapSumCalendar,
+} from "./ModalAddTransactions.styled";
 
-const Modal = ({ isOpen, onClose }) => {
-  const [isOnIncomeTab, setIsOnIncomeTab] = useState(true);
+import { addTransactionThunk } from "../../redux/transactions/operations";
+
+export const INCOME_CODE = "063f1132-ba5d-42b4-951d-44011ca46262";
+
+const schema = yup
+  .object({
+    isExpense: yup.boolean(),
+    amount: yup
+      .number()
+      .typeError("Please, enter the sum")
+      .required("Sum is required"),
+    date: date().required("Date is required"),
+    category: yup
+      .string()
+      .uuid("Incorrect format")
+      .when("isExpense", {
+        is: true,
+        then: (schema) => schema.required("Category is required"),
+      }),
+  })
+  .required();
+
+export const AddTransaction = ({ closeModal }) => {
+  const [isMinus, setIsMinus] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
+  const dispatch = useDispatch();
+  const transactionCategories = useSelector(selectFilteredCategories);
+  const isTabletOrDesktop = useMediaQuery({ query: "(min-width: 768px)" });
 
-  const initialValues = {
-    amount: "",
-    comment: "",
-    category: "",
-    date: startDate,
-  };
-
-  const addTrnValidSchema = (isOnIncomeTab) => {
-    return isOnIncomeTab
-      ? Yup.object({
-          amount: Yup.string().required("Required* "),
-          comment: Yup.string().required("Required*"),
-        })
-      : Yup.object({
-          amount: Yup.string().required("Required*"),
-          comment: Yup.string().required("Required*"),
-          category: Yup.string().required("Required*"),
-        });
-  };
-
-  const handleSubmit = (values) => {
-    onClose();
-  };
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
-    if (!isOpen) {
-      setIsOnIncomeTab(true);
-      setStartDate(new Date());
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  const onBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeModal();
     }
-  }, [isOpen]);
+  };
 
   useEffect(() => {
-    const handleEscKey = (event) => {
-      if (event.key === "Escape") {
-        onClose();
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
       }
     };
 
-    document.addEventListener("keydown", handleEscKey);
-    
+    document.addEventListener("keydown", handleEscape);
     return () => {
-      document.removeEventListener("keydown", handleEscKey);
+      document.removeEventListener("keydown", handleEscape);
     };
-  }, [onClose]);
+  }, [closeModal]);
 
-  if (!isOpen) return null;
+  const onCancelButton = () => {
+    closeModal();
+  };
+
+  const transformDate = function getFormattedDate() {
+    const year = startDate.getFullYear();
+    const month = String(startDate.getMonth() + 1).padStart(2, "0");
+    const day = String(startDate.getDate()).padStart(2, "0");
+    const transformedDate = `${year}-${month}-${day}`;
+    return transformedDate;
+  };
+
+  function onSubmit(formData) {
+    const transaction = {};
+    transaction.comment = formData.comment;
+    const amountValue = Number(formData.amount).toFixed(2);
+    transaction.amount =
+      formData.isExpense && amountValue > 0 ? -amountValue : amountValue;
+    transaction.type = formData.isExpense ? "EXPENSE" : "INCOME";
+    transaction.categoryId = formData.isExpense
+      ? formData.category
+      : INCOME_CODE;
+    transaction.transactionDate = transformDate(startDate);
+    dispatch(addTransactionThunk(transaction)).unwrap();
+    closeModal();
+  }
+
+  const selectStyle = {
+    control: (styles) => ({
+      ...styles,
+      backgroundColor: "transparent",
+      marginTop: "40px",
+      border: "none",
+      borderBottom: "1px solid rgba(255, 255, 255, 0.4)",
+      outline: "none",
+      borderRadius: "0",
+      boxShadow: "none",
+      cursor: "pointer",
+      paddingRight: isTabletOrDesktop ? "4px" : "10px",
+
+      "&:hover": {
+        border: "none",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.4)",
+      },
+    }),
+    singleValue: (styles) => ({
+      ...styles,
+      color: "#FBFBFB",
+      fontSize: "18px",
+      paddingLeft: isTabletOrDesktop ? "0" : "10px",
+    }),
+    placeholder: (styles) => ({
+      ...styles,
+      color: "rgba(255, 255, 255, 0.6)",
+      fontSize: "18px",
+      paddingLeft: isTabletOrDesktop ? "0" : "10px",
+    }),
+    menu: (styles) => ({
+      ...styles,
+      borderRadius: "8px",
+      backgroundColor: "transparent",
+      boxShadow: "0px 4px 60px 0px rgba(0, 0, 0, 0.25)",
+      backdropFilter: "blur(50px)",
+      overflow: "hidden",
+      color: "#FBFBFB",
+      fontFamily: "'Poppins-Regular', sans-serif",
+      fontSize: "16px",
+      fontWeight: "400",
+
+      "&::before": {
+        background:
+          "linear-gradient(0deg, rgba(83, 61, 186, 0.70) 0%, rgba(80, 48, 154, 0.70) 43.14%, rgba(106, 70, 165, 0.52) 73.27%, rgba(133, 93, 175, 0.13) 120.03%)",
+        content: '""',
+        filter: "blur(50px)",
+        position: "absolute",
+        inset: "0%",
+        zIndex: "-1",
+      },
+    }),
+    option: (styles, { isFocused, isSelected }) => {
+      if (isFocused) {
+        return {
+          ...styles,
+          background: "#FFFFFF1A",
+          color: "#FF868D",
+        };
+      } else if (isSelected) {
+        return {
+          ...styles,
+          background: "transparent",
+        };
+      } else {
+        return {
+          ...styles,
+        };
+      }
+    },
+    menuList: (base) => ({
+      ...base,
+      "&::-webkit-scrollbar": {
+        width: "6px",
+      },
+      "&::-webkit-scrollbar-track": {
+        background: "transparent",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        background: "#BFB4DD",
+        borderRadius: "12px",
+      },
+    }),
+  };
+
+  const DropdownIndicator = (props) => {
+    return (
+      <components.DropdownIndicator {...props}>
+        {props.selectProps.menuIsOpen ? (
+          <SlArrowUp size={18} label="Arrow up" color={"var(--white)"} />
+        ) : (
+          <SlArrowDown size={18} label="Arrow down" color={"var(--white)"} />
+        )}
+      </components.DropdownIndicator>
+    );
+  };
+
+  function handleDateChange(dateChange) {
+    setValue("date", dateChange, {
+      shouldDirty: true,
+    });
+    setStartDate(dateChange);
+  }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className={styles.wrapper}
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-    >
-      <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={onClose}>
-          <svg>
-            <use href={`${icons}#icon-close`}></use>
-          </svg>
-        </button>
-
-        <Formik
-          initialValues={initialValues}
-          validationSchema={addTrnValidSchema(isOnIncomeTab)}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting, setFieldValue }) => (
-            <Form>
-              <h2 className={styles.formTitle}>Add Transaction</h2>
-
-              {/* Switch Income/Expense */}
-              <div className={styles.switcheWrapper}>
-                <span className={`${isOnIncomeTab && styles.income}`}>
-                  Income
-                </span>
-                <input
-                  type="checkbox"
-                  id="switcherButton"
-                  onChange={() => setIsOnIncomeTab(!isOnIncomeTab)}
-                  checked={!isOnIncomeTab}
-                />
-                <label htmlFor="switcherButton"></label>
-                <span className={`${!isOnIncomeTab ? styles.expense : null}`}>
-                  Expense
-                </span>
-              </div>
-
-              {/* Kategori Alanı */}
-              {!isOnIncomeTab && (
-                <div className={`${styles.inputField} ${styles.category}`}>
-                  <Select
-                    onChange={(selectedOption) =>
-                      setFieldValue(
-                        "category",
-                        selectedOption ? selectedOption.value : null
-                      )
-                    }
-                    name="category"
-                    options={[]} // Kategori seçeneklerini buraya ekleyebilirsiniz
-                    styles={{}} // Özelleştirmeleri buraya ekleyebilirsiniz
-                  />
-                  <ErrorMessage name="category" component="p" />
-                </div>
+    <Backdrop onClick={onBackdropClick}>
+      {!isTabletOrDesktop && <Header />}
+      <Modal>
+        <Gradient />
+        <CloseModalBtn type="button" onClick={() => closeModal()}>
+          <CloseBtn />
+        </CloseModalBtn>
+        <Title>Add transaction</Title>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          {isMinus && (
+            <Controller
+              name="category"
+              control={control}
+              rules={{ required: true }}
+              render={({ field, value }) => (
+                <InputErrorWrap>
+                  <StyledSelect
+                    id="category"
+                    options={transactionCategories}
+                    components={{
+                      DropdownIndicator,
+                      IndicatorSeparator: () => null,
+                    }}
+                    placeholder="Select a category"
+                    styles={selectStyle}
+                    isSearchable={false}
+                    value={transactionCategories.find(
+                      (category) => category.value === value
+                    )}
+                    onChange={(option) => field.onChange(option.value)}
+                  />{" "}
+                  {errors.category && (
+                    <ErrorMessage>{errors.category.message}</ErrorMessage>
+                  )}
+                </InputErrorWrap>
               )}
+            />
+          )}
 
-              <div className={styles.aaa}>
-                {/* Tutar Alanı */}
-                <div className={`${styles.inputField} ${styles.amount}`}>
-                  <Field
-                    type="number"
-                    name="amount"
-                    min="1"
-                    placeholder="0.00"
-                  />
-                  <ErrorMessage name="amount" component="p" />
-                </div>
-
-                {/* Tarih Alanı */}
-                <div className={`${styles.inputField} ${styles.date}`}>
+          <WrapSumCalendar>
+            <InputErrorWrap>
+              <Input
+                type="text"
+                name="amount"
+                placeholder="0.00"
+                {...register("amount")}
+                autoComplete="off"
+              />
+              {errors.amount && (
+                <ErrorMessage>{errors.amount.message}</ErrorMessage>
+              )}
+            </InputErrorWrap>
+            <InputErrorWrap>
+              <Controller
+                name="date"
+                control={control}
+                defaultValue={startDate}
+                color="var(--white-60)"
+                render={() => (
                   <ReactDatePicker
-                    dateFormat="dd.MM.yyyy"
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={handleDateChange}
+                    dateFormat="dd.MM.yyyy"
                     maxDate={new Date()}
                   />
-                  <FiCalendar className={styles.icon} />
-                </div>
-              </div>
-              {/* Yorum Alanı */}
-              <div className={`${styles.inputField} ${styles.comment}`}>
-                <Field type="text" name="comment" placeholder="Comment" />
-                <ErrorMessage name="comment" component="p" />
-              </div>
+                )}
+              />
 
-              <div className={styles.btns}>
-                <FormButton
-                  type="submit"
-                  text={"ADD"}
-                  variant={"multiColorButtton"}
-                />
-                <FormButton
-                  type="button"
-                  text={"Cancel"}
-                  variant={"whiteButtton"}
-                  onClick={onClose}
-                />
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </motion.div>
+              {errors.date && (
+                <ErrorMessage>{errors.date.message}</ErrorMessage>
+              )}
+            </InputErrorWrap>
+          </WrapSumCalendar>
+
+          <CommentInputStyled
+            type="text"
+            placeholder="Comment"
+            autoComplete="off"
+            {...register("comment")}
+          />
+          <ButtonsWrap>
+            <BtnAdd type="submit">Add</BtnAdd>
+            <BtnCancel type="button" onClick={onCancelButton}>
+              Cancel
+            </BtnCancel>
+          </ButtonsWrap>
+        </Form>
+      </Modal>
+    </Backdrop>
   );
 };
-
-export default Modal;

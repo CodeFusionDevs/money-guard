@@ -6,8 +6,8 @@ import {
   CurrencyTableHeadItem,
   CurrencyHeadWrapper,
 } from "./CurrencyStyled";
-import { selectCurrencyRates } from "../../../../redux/currency/selectors";
-import { fetchCurrencyRates } from "../../../../redux/currency/operations";
+import { selectCurrencyRates } from "../../../../redux2/currency/selectors";
+import { fetchCurrencyRates } from "../../../../redux2/currency/operations";
 import { useDispatch, useSelector } from "react-redux";
 import { CurrencyChart } from "./Chart";
 

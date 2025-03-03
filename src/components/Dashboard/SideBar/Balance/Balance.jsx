@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import css from "./Balance.module.css";
-import { setTotalBalance } from "../../../../redux/balance/balanceSlice";
-import { selectTotalBalance } from "../../../../redux/balance/balanceSelectors";
-import { selectTransactions } from "../../../../redux/transactions/selectors";
+import { setTotalBalance } from "../../../../redux2/balance/balanceSlice";
+import { selectTotalBalance } from "../../../../redux2/balance/balanceSelectors";
+import { selectTransactions } from "../../../../redux2/transactions/selectors";
 
 const Balance = () => {
   const dispatch = useDispatch();

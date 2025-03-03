@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CurrencyWrapper } from "./CurrencyStyled";
-import { selectCurrencyRates } from "../../../../redux/currency/selectors";
-import { fetchCurrencyRates } from "../../../../redux/currency/operations";
+import { selectCurrencyRates } from "../../../../redux2/currency/selectors";
+import { fetchCurrencyRates } from "../../../../redux2/currency/operations";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";

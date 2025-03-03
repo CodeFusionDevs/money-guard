@@ -34,6 +34,7 @@
     "react-select": "^5.10.0",
     "react-toastify": "^11.0.3",
     "redux-persist": "^6.0.0",
+    "styled-components": "^6.1.15",
     "yup": "^1.6.1"
   },
   "devDependencies": {

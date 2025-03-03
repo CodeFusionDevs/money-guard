@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { toggleLogOutModal } from "../../../redux/modal/slice.js";
+import { toggleLogOutModal } from "../../../redux2/modal/slice.js";
 // import Modal from "../../Modals/LogOutModal/Modal.jsx"; // Ensure this path is correct
 // import Logout from "../../Logout/Logout.jsx"; // Ensure this path is correct
 import exit from "../../../assets/icons/exit.svg";
@@ -19,7 +19,7 @@ import {
   ExitText,
 } from "./Header.styled.js";
 import logo from "../../../assets/icons/logo.svg";
-import { selectUser } from "../../../redux/auth/selectors.js";
+import { selectUser } from "../../../redux2/auth/selectors.js";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Header = () => {
