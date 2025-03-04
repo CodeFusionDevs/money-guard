@@ -107,8 +107,6 @@ const TransactionsList = () => {
 
       <div className={styles.controls}>
         <ButtonAddTransactions />
-
-        <button onClick={() => console.log(categories)}>Get Categories</button>
       </div>
     </div>
   );

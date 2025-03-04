@@ -36,6 +36,7 @@ const createTransaction = createAsyncThunk(
   "transactions/createTransaction",
   async (transactionData, thunkAPI) => {
     try {
+      console.log("transactionData", transactionData);
       const response = await axios.post(
         `${BASE_URL}/api/transactions`,
         transactionData
