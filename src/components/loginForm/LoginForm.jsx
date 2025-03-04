@@ -23,7 +23,7 @@ export const LoginForm = () => {
   };
   const handleSubmit = (values, actions) => {
     console.log("Login credentials:", values);
-    dispatch(login(values)).unwrap().then(navigate("/dashboard"));
+    dispatch(login(values)).unwrap().then(navigate("/"));
     actions.resetForm();
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import styles from "./ButtonAddTransactions.module.css";
 import Modal from "../modalAddTansactions/ModalAddTransactions";

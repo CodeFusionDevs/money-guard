@@ -9,16 +9,30 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ModalAddTransactions.module.css";
 import icons from "../../images/icons/sprite.svg";
 import * as Yup from "yup";
+import { selectTransactionCategories } from "../../redux/transactions/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { createTransaction } from "../../redux/transactions/operations";
 
 const Modal = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+
+  const categories = useSelector(selectTransactionCategories);
+
+  const categoryOptions = categories.map((category) => ({
+    value: category.id,
+    label: category.name,
+    type: category.type,
+  }));
+
   const [isOnIncomeTab, setIsOnIncomeTab] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
 
   const initialValues = {
     amount: "",
     comment: "",
-    category: "",
-    date: startDate,
+    categoryId: "",
+    transactionDate: startDate,
+    type: isOnIncomeTab ? "INCOME" : "EXPENSE",
   };
 
   const addTrnValidSchema = (isOnIncomeTab) => {
@@ -30,11 +44,15 @@ const Modal = ({ isOpen, onClose }) => {
       : Yup.object({
           amount: Yup.string().required("Required*"),
           comment: Yup.string().required("Required*"),
-          category: Yup.string().required("Required*"),
+          categoryId: Yup.string().required("Required*"),
         });
   };
 
   const handleSubmit = (values) => {
+    if (!isOnIncomeTab) {
+      values.amount = values.amount * -1;
+    }
+    dispatch(createTransaction(values));
     onClose();
   };
 
@@ -53,7 +71,7 @@ const Modal = ({ isOpen, onClose }) => {
     };
 
     document.addEventListener("keydown", handleEscKey);
-    
+
     return () => {
       document.removeEventListener("keydown", handleEscKey);
     };
@@ -81,7 +99,7 @@ const Modal = ({ isOpen, onClose }) => {
           validationSchema={addTrnValidSchema(isOnIncomeTab)}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, setFieldValue }) => (
+          {({ setFieldValue }) => (
             <Form>
               <h2 className={styles.formTitle}>Add Transaction</h2>
 
@@ -93,7 +111,13 @@ const Modal = ({ isOpen, onClose }) => {
                 <input
                   type="checkbox"
                   id="switcherButton"
-                  onChange={() => setIsOnIncomeTab(!isOnIncomeTab)}
+                  onChange={() => {
+                    setIsOnIncomeTab(!isOnIncomeTab);
+                    setFieldValue(
+                      "type",
+                      !isOnIncomeTab ? "INCOME" : "EXPENSE"
+                    );
+                  }}
                   checked={!isOnIncomeTab}
                 />
                 <label htmlFor="switcherButton"></label>
@@ -108,15 +132,24 @@ const Modal = ({ isOpen, onClose }) => {
                   <Select
                     onChange={(selectedOption) =>
                       setFieldValue(
-                        "category",
+                        "categoryId",
                         selectedOption ? selectedOption.value : null
                       )
                     }
-                    name="category"
-                    options={[]} // Kategori seçeneklerini buraya ekleyebilirsiniz
-                    styles={{}} // Özelleştirmeleri buraya ekleyebilirsiniz
+                    name="categoryId"
+                    options={categoryOptions}
+                    placeholder="Select category"
+                    styles={{
+                      control: (base) => ({
+                        ...base,
+                        border: "1px solid #ccc",
+                        borderRadius: "8px",
+                        padding: "2px",
+                      }),
+                    }}
                   />
-                  <ErrorMessage name="category" component="p" />
+
+                  <ErrorMessage name="categoryId" component="p" />
                 </div>
               )}
 
@@ -137,7 +170,10 @@ const Modal = ({ isOpen, onClose }) => {
                   <ReactDatePicker
                     dateFormat="dd.MM.yyyy"
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => {
+                      setStartDate(date);
+                      setFieldValue("transactionDate", date);
+                    }}
                     maxDate={new Date()}
                   />
                   <FiCalendar className={styles.icon} />
