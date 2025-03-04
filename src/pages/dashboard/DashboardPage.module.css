@@ -1,9 +1,120 @@
 .container {
-  height: 80vh;
+  width: 100%;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #96f89b;
-  border-radius: 10px;
   margin: 0 auto;
+}
+
+.DARKbackground {
+  background: #101010;
+  z-index: -2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.SVGbackground {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* CONTAINER SECTION */
+.innerContainer {
+  width: 1280px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.leftContainer {
+  /* Burası 480px'e sabitlense daha iyi olur */
+  width: 37.5%;
+  height: 100%;
+  /* background-color: #cfec65; */
+  border-right: 4px solid #ff0000;
+}
+
+.rightContainer {
+  /* Burası 100% - 480px olması lazım */
+  width: 62.5%;
+  min-height: 400px;
+}
+
+/* TABS SECTION */
+.leftContainerTabs {
+  margin-top: 40px;
+  margin-left: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.homeIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.homeIconImg {
+  width: 18px;
+  height: 18px;
+}
+
+.homeIconImg svg {
+  fill: var(--icon-violet);
+}
+
+.homeIcon p {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--white);
+}
+
+.statisticsIcon {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.statisticsIconImg {
+  width: 18px;
+  height: 18px;
+}
+
+.statisticsIconImg svg {
+  fill: var(--white-400);
+}
+
+.statisticsIcon p {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--white);
+}
+
+/* BALANCE SECTION */
+.leftContainerBallance {
+  margin-top: 40px;
+  width: 100%;
+  height: 80px;
+  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
+  background: rgba(82, 59, 126, 0.6);
+}
+
+/* CURRENCY SECTION */
+.leftContainerCurrency {
+  margin-top: 32px;
+  width: 100%;
+  height: 380px;
 }

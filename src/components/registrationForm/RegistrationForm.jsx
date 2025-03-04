@@ -28,7 +28,7 @@ export const RegistrationForm = () => {
     const { username, email, password } = values;
     dispatch(signup({ username, email, password }))
       .unwrap()
-      .then(navigate("/dashboard"));
+      .then(navigate("/"));
 
     actions.resetForm();
   };
