@@ -54,7 +54,7 @@
 
   /* Burası 480px'e sabitlense daha iyi olur */
   width: 100%;
-  height: 215px;
+  height: 189px;
 }
 
 .rightContainer {
@@ -66,8 +66,8 @@
 
 /* TABS SECTION */
 .leftContainerTabs {
-  margin: 0 auto;
-  margin-top: 12px;
+  margin: 18px auto;
+  /* margin-top: 12px; */
   /* margin-left: 16px; */
   /* padding: 0px 62px; */
   width: 100%;
@@ -141,7 +141,7 @@
 
 /* BALANCE SECTION */
 .leftContainerBallance {
-  margin-top: 12px;
+  /* margin-top: 12px; */
   width: 100%;
   min-height: 90px;
   height: 90px;
