@@ -12,6 +12,7 @@ import * as Yup from "yup";
 import { selectTransactionCategories } from "../../redux/transactions/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { createTransaction } from "../../redux/transactions/operations";
+import { customStyles } from "./customStyles";
 
 const Modal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
@@ -142,14 +143,7 @@ const Modal = ({ isOpen, onClose }) => {
                     name="categoryId"
                     options={categoryOptions}
                     placeholder="Select category"
-                    styles={{
-                      control: (base) => ({
-                        ...base,
-                        border: "1px solid #ccc",
-                        borderRadius: "8px",
-                        padding: "2px",
-                      }),
-                    }}
+                    styles={customStyles}
                   />
 
                   <ErrorMessage name="categoryId" component="p" />
