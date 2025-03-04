@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteTransaction } from "../../redux/transactions/operations.js";
 import FormButton from "../common/FormButton/FormButton.jsx";
 import EditModal from "../modalEditTransaction/ModalEditTransactions.jsx";
-import ToastDeleteConfirm from "../ToastDeleteConfirm/ToastDeleteConfirm.jsx";
 
 const TransactionsList = () => {
   const transactions = useSelector(selectTransactions);
