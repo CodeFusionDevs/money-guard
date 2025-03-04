@@ -52,6 +52,9 @@ const Modal = ({ isOpen, onClose }) => {
     if (!isOnIncomeTab) {
       values.amount = values.amount * -1;
     }
+    if (isOnIncomeTab) {
+      values.categoryId = categories[10].id;
+    }
     dispatch(createTransaction(values));
     onClose();
   };
