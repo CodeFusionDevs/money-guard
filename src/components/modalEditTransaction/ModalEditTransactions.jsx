@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTransactionCategories } from "../../redux/transactions/selectors";
@@ -14,6 +14,7 @@ import Slash from "./Slash";
 import clsx from "clsx";
 import styles from "./ModalEditTransactions.module.css";
 import "react-datepicker/dist/react-datepicker.css";
+import { getTransactions } from "../../redux/transactions/operations";
 
 const useMedia = () => {
   const isMobile = useMediaQuery({
@@ -33,10 +34,10 @@ const useMedia = () => {
 };
 
 const EditModal = ({ closeModal, item }) => {
+  // eslint-disable-next-line no-unused-vars
   const [isOnIncomeTab, setIsOnIncomeTab] = useState(
     item.type === "EXPENSE" ? false : true
   );
-  useEffect(() => {}, [isOnIncomeTab]);
   const categories = useSelector(selectTransactionCategories);
   const { isTablet } = useMedia();
   const dispatch = useDispatch();
@@ -61,8 +62,11 @@ const EditModal = ({ closeModal, item }) => {
     )
       .unwrap()
       .then(() => {
-        closeModal();
-        dispatch(getBalanceThunk());
+        dispatch(getTransactions())
+          .unwrap()
+          .then(() => {
+            closeModal();
+          });
       })
       .catch((error) => {
         setStatus({ success: false, error: error });
@@ -71,7 +75,7 @@ const EditModal = ({ closeModal, item }) => {
   };
 
   return (
-    <div className={styles.modal} onClose={closeModal}>
+    <div className={styles.modal}>
       <div className={styles.modalContent}>
         {isTablet && (
           <button className={styles.closeButton} onClick={() => closeModal()}>

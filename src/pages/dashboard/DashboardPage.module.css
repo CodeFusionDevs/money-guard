@@ -1,121 +1,265 @@
-.container {
-  width: 100%;
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
+@media (min-width: 768px) and (max-width: 1279px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .DARKbackground {
+    background: #101010;
+    z-index: -2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .SVGbackground {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    /* height: 150%; */
+  }
+
+  /* CONTAINER SECTION */
+  .innerContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .leftContainerTabANDBalance {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    padding: 0px 32px;
+  }
+
+  .leftContainer {
+    display: flex;
+    flex-direction: row;
+
+    /* Burası 480px'e sabitlense daha iyi olur */
+    width: 100%;
+    height: 215px;
+  }
+
+  .rightContainer {
+    /* Burası 100% - 480px olması lazım */
+    width: calc(100%);
+    min-height: 400px;
+    height: 100%;
+  }
+
+  /* TABS SECTION */
+  .leftContainerTabs {
+    margin-top: 40px;
+    margin-left: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .homeIcon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .homeIconImg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .homeIconImg svg {
+    fill: var(--icon-violet);
+  }
+
+  .homeIcon p {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--white);
+  }
+
+  .statisticsIcon {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .statisticsIconImg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .statisticsIconImg svg {
+    fill: var(--white-400);
+  }
+
+  .statisticsIcon p {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--white);
+  }
+
+  /* BALANCE SECTION */
+  .leftContainerBallance {
+    margin-top: 40px;
+    width: 100%;
+    min-height: 90px;
+    height: 90px;
+    border-radius: 8px;
+    box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
+    background: rgba(82, 59, 126, 0.6);
+  }
+
+  /* CURRENCY SECTION */
+  .leftContainerCurrency {
+    margin-top: 32px;
+    width: 100%;
+    height: 380px;
+  }
 }
 
-.DARKbackground {
-  background: #101010;
-  z-index: -2;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+@media (min-width: 1280px) {
+  .container {
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
 
-.SVGbackground {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+  .DARKbackground {
+    background: #101010;
+    z-index: -2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 
-/* CONTAINER SECTION */
-.innerContainer {
-  width: 1280px;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-}
+  .SVGbackground {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 
-.leftContainer {
-  /* Burası 480px'e sabitlense daha iyi olur */
-  width: 37.5%;
-  height: calc(100vh - 80px);
-  /* background-color: #cfec65; */
-  border-right: 1px solid var(--white-400);
-}
+  /* CONTAINER SECTION */
+  .innerContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
 
-.rightContainer {
-  /* Burası 100% - 480px olması lazım */
-  width: 62.5%;
-  min-height: 400px;
-}
+  .leftContainer {
+    /* Burası 480px'e sabitlense daha iyi olur */
+    width: 480px;
+    height: calc(100vh - 80px);
+    /* background-color: #cfec65; */
+    border-right: 1px solid var(--white-400);
+  }
 
-/* TABS SECTION */
-.leftContainerTabs {
-  margin-top: 40px;
-  margin-left: 16px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+  .rightContainer {
+    /* Burası 100% - 480px olması lazım */
+    width: calc(100% - 480px);
+    min-height: 400px;
+  }
 
-.homeIcon {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-}
+  /* TABS SECTION */
+  .leftContainerTabs {
+    margin-top: 40px;
+    margin-left: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 
-.homeIconImg {
-  width: 18px;
-  height: 18px;
-}
+  .homeIcon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
 
-.homeIconImg svg {
-  fill: var(--icon-violet);
-}
+  .homeIconImg {
+    width: 18px;
+    height: 18px;
+  }
 
-.homeIcon p {
-  font-family: var(--font-family);
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--white);
-}
+  .homeIconImg svg {
+    fill: var(--icon-violet);
+  }
 
-.statisticsIcon {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
+  .homeIcon p {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--white);
+  }
 
-.statisticsIconImg {
-  width: 18px;
-  height: 18px;
-}
+  .statisticsIcon {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
 
-.statisticsIconImg svg {
-  fill: var(--white-400);
-}
+  .statisticsIconImg {
+    width: 18px;
+    height: 18px;
+  }
 
-.statisticsIcon p {
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 18px;
-  color: var(--white);
-}
+  .statisticsIconImg svg {
+    fill: var(--white-400);
+  }
 
-/* BALANCE SECTION */
-.leftContainerBallance {
-  margin-top: 40px;
-  width: 100%;
-  height: 80px;
-  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
-  background: rgba(82, 59, 126, 0.6);
-}
+  .statisticsIcon p {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--white);
+  }
 
-/* CURRENCY SECTION */
-.leftContainerCurrency {
-  margin-top: 32px;
-  width: 100%;
-  height: 380px;
+  /* BALANCE SECTION */
+  .leftContainerBallance {
+    margin-top: 40px;
+    width: 100%;
+    min-height: 90px;
+    height: 90px;
+    box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
+    background: rgba(82, 59, 126, 0.6);
+  }
+
+  /* CURRENCY SECTION */
+  .leftContainerCurrency {
+    margin-top: 32px;
+    width: 100%;
+    height: 380px;
+  }
 }
