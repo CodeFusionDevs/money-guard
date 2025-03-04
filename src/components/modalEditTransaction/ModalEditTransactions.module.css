@@ -9,7 +9,9 @@
   left: 0;
   width: 100%;
   height: calc(100vh - 60px);
+  z-index: 1000;
 }
+
 
 @media screen and (min-width: 768px) {
   .wrapper {
@@ -29,12 +31,12 @@
   min-height: 100%;
   background: var(--form-color);
   background-size: cover;
-  background-image: url('../../images/addtrnsctnimg/add-edit-mob1x.webp');
+  background-image: url("../../images/addtrnsctnimg/add-edit-mob1x.webp");
 }
 
 @media screen and (min-resolution: 192dpi) {
   .modalContent {
-    background-image: url('../../images/addtrnsctnimg/add-edit-mob2x.webp');
+    background-image: url("../../images/addtrnsctnimg/add-edit-mob2x.webp");
   }
 }
 
@@ -145,8 +147,8 @@ form .inputWrapper {
   pointer-events: none;
 }
 
-.inputField input[type='number']::-webkit-inner-spin-button,
-.inputField input[type='number']::-webkit-outer-spin-button {
+.inputField input[type="number"]::-webkit-inner-spin-button,
+.inputField input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -158,7 +160,6 @@ form .buttonsWrapper {
   gap: 20px;
 }
 
-
 .switcheWrapper {
   display: flex;
   align-items: center;
@@ -166,9 +167,9 @@ form .buttonsWrapper {
   gap: 20px;
 }
 
- .slash {
-   padding-left: 20px;
- }
+.slash {
+  padding-left: 20px;
+}
 
 .switcheWrapper span {
   color: rgba(255, 255, 255, 0.6);
@@ -205,7 +206,7 @@ form .buttonsWrapper {
 }
 
 .switcheWrapper label:after {
-  content: '+';
+  content: "+";
   color: rgba(255, 255, 255, 1);
   width: 44px;
   height: 44px;
@@ -229,8 +230,8 @@ form .buttonsWrapper {
   visibility: hidden;
 }
 
-.switcheWrapper input:checked+label:after {
-  content: '-';
+.switcheWrapper input:checked + label:after {
+  content: "-";
   font-size: 35px;
   color: rgba(255, 255, 255, 1);
 
@@ -249,8 +250,8 @@ label:active::after {
   .modalContent {
     backdrop-filter: blur(100px);
     box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
-    background-image: url('../../images/editimg/edit-desk@1x.webp'),
-      url('../../images/editimg/edit-circle-desk@1x.webp');
+    background-image: url("../../images/editimg/edit-desk@1x.webp"),
+      url("../../images/editimg/edit-circle-desk@1x.webp");
     border-radius: 8px;
     min-height: fit-content;
     width: 540px;
@@ -261,8 +262,8 @@ label:active::after {
 
   @media screen and (min-width: 768px) and(min-resolution: 192dpi) {
     .modalContent {
-      background-image: url('../../images/editimg/edit-desk2x.webp'),
-        url('../../images/editimg/edit-circle-desk@2x.webp');
+      background-image: url("../../images/editimg/edit-desk2x.webp"),
+        url("../../images/editimg/edit-circle-desk@2x.webp");
     }
   }
 
@@ -298,7 +299,7 @@ label:active::after {
     stroke: rgba(251, 251, 251, 1);
   }
 
-  .closeButton:hover>svg {
+  .closeButton:hover > svg {
     stroke: red;
   }
 
@@ -323,10 +324,54 @@ label:active::after {
   }
 
   .inputField.date {
-    flex: 1;
+    width: 100%;
+
   }
 
   .inputField.comment {
     width: 100%;
   }
+}
+
+/* Mobile-specific styles */
+@media screen and (max-width: 767px) {
+  .modalContent {
+    width: 100%;
+    min-height: 100%;
+    padding: 20px 20px;
+    border-radius: 0;
+  }
+
+  .mobileCloseButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .mobileCloseButton:hover svg path {
+    stroke: rgba(255, 255, 255, 1);
+  }
+
+  .form .buttonsWrapper {
+    width: 100%;
+  }
+
+  .form .buttonsWrapper button {
+    width: 100%;
+  }
+
+  .inputWrapper .inputField input,
+  .inputWrapper .inputField select {
+    font-size: 16px;
+  }
+
 }

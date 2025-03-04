@@ -16,9 +16,10 @@ import styles from "./ModalEditTransactions.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { getTransactions } from "../../redux/transactions/operations";
 
+
 const useMedia = () => {
   const isMobile = useMediaQuery({
-    query: "(max-width: 767px)",
+    query: "(min-width: 320px)",
   });
   const isTablet = useMediaQuery({
     query: "(min-width: 768px)",
@@ -77,10 +78,32 @@ const EditModal = ({ closeModal, item }) => {
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
-        {isTablet && (
+        {isTablet ? (
           <button className={styles.closeButton} onClick={() => closeModal()}>
             <svg>
               <use href={`${icons}#icon-close`}></use>
+            </svg>
+          </button>
+        ) : (
+          <button
+            className={styles.mobileCloseButton}
+            onClick={() => closeModal()}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 1L15 15M1 15L15 1"
+                stroke="white"
+                strokeOpacity="0.8"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         )}
@@ -118,6 +141,7 @@ const EditModal = ({ closeModal, item }) => {
 
                 <div className={clsx(styles.inputField, styles.date)}>
                   <ReactDatePicker
+                    className="datePicker1"
                     dateFormat="dd.MM.yyyy"
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
