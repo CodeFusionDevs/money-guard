@@ -9,63 +9,7 @@ import {
 
 const initialState = {
   transactions: [],
-  transactionCategories: [
-    {
-      name: "Income",
-      color: "#0000FF",
-      icon: "💰",
-    },
-    {
-      name: "Main Expanses",
-      color: "#00FF00",
-      icon: "🚗",
-    },
-    {
-      name: "Products",
-      color: "#0000FF",
-      icon: "🍔",
-    },
-    {
-      name: "Car",
-      color: "#FFFF00",
-      icon: "🚗",
-    },
-    {
-      name: "Self care",
-      color: "#808080",
-      icon: "💆‍♂️",
-    },
-    {
-      name: "Child care",
-      color: "#808080",
-      icon: "👶",
-    },
-    {
-      name: "Household products",
-      color: "#808080",
-      icon: "🏠",
-    },
-    {
-      name: "Education",
-      color: "#808080",
-      icon: "🎓",
-    },
-    {
-      name: "Leisure",
-      color: "#808080",
-      icon: "🎮",
-    },
-    {
-      name: "Other expenses",
-      color: "#808080",
-      icon: "💡",
-    },
-    {
-      name: "Entertainment",
-      color: "#808080",
-      icon: "🎮",
-    },
-  ],
+  transactionCategories: [],
   isLoading: false,
   error: null,
 };

@@ -1,17 +1,12 @@
 import styles from "./transactionsList.module.css";
 import ButtonAddTransactions from "../buttonAddTransactions/ButtonAddTransactions";
-
 import {
   selectTransactions,
   selectTransactionCategories,
 } from "../../redux/transactions/selectors.js";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getTransactions,
-  getCategories,
-  deleteTransaction,
-} from "../../redux/transactions/operations.js";
-import axios from "axios";
+import { deleteTransaction } from "../../redux/transactions/operations.js";
+import FormButton from "../common/FormButton/FormButton.jsx";
 
 const TransactionsList = () => {
   const transactions = useSelector(selectTransactions);
@@ -97,12 +92,12 @@ const TransactionsList = () => {
                       />
                     </svg>
                   </button>
-                  <button
-                    className={styles.deleteButton}
+                  <FormButton
+                    type="button"
+                    variant={"btn_delete"}
+                    text={"Delete"}
                     onClick={() => handleDelete(transaction.id)}
-                  >
-                    Delete
-                  </button>
+                  />
                 </td>
               </tr>
             ))}
@@ -112,23 +107,8 @@ const TransactionsList = () => {
 
       <div className={styles.controls}>
         <ButtonAddTransactions />
-        <button
-          className={styles.refreshButton}
-          onClick={() => {
-            dispatch(getTransactions());
-            console.log(
-              "Axios Token:",
-              axios.defaults.headers.common.Authorization
-            );
-            dispatch(getCategories())
-              .unwrap()
-              .then((categories) => {
-                console.log("Transactions categories:", categories);
-              });
-          }}
-        >
-          Get Transactions
-        </button>
+
+        <button onClick={() => console.log(categories)}>Get Categories</button>
       </div>
     </div>
   );

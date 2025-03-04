@@ -4,7 +4,6 @@ import { Outlet } from "react-router-dom";
 // import { selectUser } from "../../redux/auth/selectors";
 // import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import HeaderLayout from "../../layout/HeaderLayout";
-import ButtonAddTransactions from "../../components/buttonAddTransactions/ButtonAddTransactions";
 import BallanceTab from "../../components/ballanceTab/BallanceTab";
 
 const DashboardPage = () => {
@@ -262,13 +261,12 @@ const DashboardPage = () => {
             <p>USD</p>
           </div>
         </div>
+        <div className={styles.verticalStroke}></div>
         <div className={styles.rightContainer}>
           <p>Welcome, USER.</p>
           {/* Outlet is used to show the nested routes that are transactions, statistics */}
           <Outlet />
         </div>
-
-        
       </div>
     </div>
   );

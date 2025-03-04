@@ -9,8 +9,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ModalAddTransactions.module.css";
 import icons from "../../images/icons/sprite.svg";
 import * as Yup from "yup";
+import { selectTransactionCategories } from "../../redux/transactions/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { addTransaction } from "../../redux/transactions/operations";
 
 const Modal = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+
+  const categories = useSelector(selectTransactionCategories);
+
+  const categoryOptions = categories.map((category) => ({
+    value: category.id,
+    label: category.name,
+    type: category.type,
+  }));
+
   const [isOnIncomeTab, setIsOnIncomeTab] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
 
@@ -35,6 +48,8 @@ const Modal = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = (values) => {
+    console.log("Add Clicked", values);
+    dispatch(addTransaction(values));
     onClose();
   };
 
@@ -53,7 +68,7 @@ const Modal = ({ isOpen, onClose }) => {
     };
 
     document.addEventListener("keydown", handleEscKey);
-    
+
     return () => {
       document.removeEventListener("keydown", handleEscKey);
     };
@@ -113,9 +128,18 @@ const Modal = ({ isOpen, onClose }) => {
                       )
                     }
                     name="category"
-                    options={[]} // Kategori seçeneklerini buraya ekleyebilirsiniz
-                    styles={{}} // Özelleştirmeleri buraya ekleyebilirsiniz
+                    options={categoryOptions}
+                    placeholder="Select category"
+                    styles={{
+                      control: (base) => ({
+                        ...base,
+                        border: "1px solid #ccc",
+                        borderRadius: "8px",
+                        padding: "2px",
+                      }),
+                    }}
                   />
+
                   <ErrorMessage name="category" component="p" />
                 </div>
               )}
