@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./transactionsList.module.css";
 import ButtonAddTransactions from "../buttonAddTransactions/ButtonAddTransactions";
 import {
@@ -7,13 +8,16 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTransaction } from "../../redux/transactions/operations.js";
 import FormButton from "../common/FormButton/FormButton.jsx";
+import EditModal from "../modalEditTransaction/ModalEditTransactions.jsx";
+import ToastDeleteConfirm from "../ToastDeleteConfirm/ToastDeleteConfirm.jsx";
 
 const TransactionsList = () => {
   const transactions = useSelector(selectTransactions);
   const categories = useSelector(selectTransactionCategories);
   const dispatch = useDispatch();
 
-  console.log("Transactions:", transactions);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   const getCategoryName = (categoryId) => {
     const category = categories.find((cat) => cat.id === categoryId);
@@ -36,8 +40,13 @@ const TransactionsList = () => {
   };
 
   const handleEdit = (transaction) => {
-    // Handle edit functionality here
-    console.log("Edit transaction:", transaction);
+    setSelectedTransaction(transaction);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedTransaction(null);
   };
 
   return (
@@ -97,7 +106,7 @@ const TransactionsList = () => {
                     variant={"btn_delete"}
                     text={"Delete"}
                     onClick={() => handleDelete(transaction.id)}
-                  />
+                  />  
                 </td>
               </tr>
             ))}
@@ -108,6 +117,10 @@ const TransactionsList = () => {
       <div className={styles.controls}>
         <ButtonAddTransactions />
       </div>
+
+      {isModalOpen && selectedTransaction && (
+        <EditModal closeModal={closeModal} item={selectedTransaction} />
+      )}
     </div>
   );
 };
