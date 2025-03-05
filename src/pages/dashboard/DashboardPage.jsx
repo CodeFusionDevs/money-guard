@@ -16,7 +16,7 @@ const DashboardPage = () => {
   // console.log("In DashboardPage isLoggedIn", isLoggedIn);
   // console.log("In DashboardPage user.name", user.username);
 
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
   return (
     <div className={styles.container}>
