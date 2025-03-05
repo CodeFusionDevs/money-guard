@@ -15,7 +15,7 @@ const TransactionsList = () => {
   const categories = useSelector(selectTransactionCategories);
   const dispatch = useDispatch();
 
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);

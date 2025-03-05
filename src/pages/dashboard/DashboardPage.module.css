@@ -421,3 +421,30 @@
     height: 380px;
   }
 }
+
+@media (max-width: 768px) {
+  .leftContainerBallance {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .currencyIconImg {
+    display: none;
+  }
+
+  .homeIconImg,
+  .statisticsIconImg {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .leftContainerBallance {
+    margin-bottom: 20px;
+    width: 336px;
+  }
+}
