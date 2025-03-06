@@ -21,6 +21,12 @@
   width: 100%;
 }
 
+.filterAndTableContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .statisticsFiltersContainer {
   display: flex;
   flex-direction: column;
@@ -32,6 +38,7 @@
 .statisticsFilterMonth {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .customSelect {
@@ -109,4 +116,23 @@
 
 .statisticsTable {
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+  }
+  .statisticsFiltersContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .statisticsChart {
+    width: 50%;
+  }
+  .filterAndTableContainer {
+    width: 50%;
+  }
 }
