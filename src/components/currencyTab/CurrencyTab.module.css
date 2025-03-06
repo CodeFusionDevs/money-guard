@@ -52,23 +52,30 @@
 
 /* Mobile styles */
 @media (max-width: 767px) {
-  .currencyTable th, 
+  .currencyTable th,
   .currencyTable td {
     padding-left: 10px;
     padding-right: 10px;
     font-size: 14px;
   }
-  
-  .currencyTable th:last-child, 
+
+  .currencyTable th:last-child,
   .currencyTable td:last-child {
     padding-right: 10px;
   }
-  
+
   .loading {
     font-size: 14px;
     text-align: center;
     color: #fff;
     padding: 20px 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .currencyTableGraph {
+    width: 100%;
+    height: 93px;
   }
 }
 
