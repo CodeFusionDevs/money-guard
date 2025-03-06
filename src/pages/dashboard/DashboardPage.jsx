@@ -1,6 +1,6 @@
 import styles from "./DashboardPage.module.css";
 // import { useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 // import { selectUser } from "../../redux/auth/selectors";
 // import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import HeaderLayout from "../../layout/HeaderLayout";
@@ -217,7 +217,7 @@ const DashboardPage = () => {
         <div className={styles.leftContainer}>
           <div className={styles.leftContainerTabANDBalance}>
             <div className={styles.leftContainerTabs}>
-              <div className={styles.homeIcon}>
+              <Link to="/" className={styles.homeIcon}>
                 <div className={styles.homeIconImg}>
                   <svg
                     width="18"
@@ -235,8 +235,8 @@ const DashboardPage = () => {
                   </svg>
                 </div>
                 {isMobile ? null : <p>Home</p>}
-              </div>
-              <div className={styles.statisticsIcon}>
+              </Link>
+              <Link to="/statistics" className={styles.statisticsIcon}>
                 <div className={styles.statisticsIconImg}>
                   <svg
                     width="18"
@@ -255,7 +255,7 @@ const DashboardPage = () => {
                   </svg>
                 </div>
                 {isMobile ? null : <p>Statistics</p>}
-              </div>
+              </Link>
               {isMobile ? (
                 <div className={styles.currencyIcon}>
                   <div className={styles.currencyIconImg}>

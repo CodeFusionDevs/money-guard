@@ -16,6 +16,7 @@ import {
 } from "./redux/auth/operations";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import RestrictedRoutes from "./routes/RestrictedRoutes";
+import CurrencyTab from "./components/currencyTab/CurrencyTab";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ function App() {
         >
           <Route index element={<TransactionsList />} />
           <Route path="statistics" element={<StatisticsDashboard />} />
+          <Route path="currency" element={<CurrencyTab />} />
         </Route>
         <Route
           path="/login"

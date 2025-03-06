@@ -59,7 +59,7 @@
 
 .rightContainer {
   /* Burası 100% - 480px olması lazım */
-  width: calc(100%);
+  width: 100%;
   min-height: 400px;
   height: 100%;
 }
@@ -213,12 +213,11 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 215px;
+    height: 100%;
   }
 
   .rightContainer {
-
-    width: calc(100%);
+    width: 100%;
     min-height: 400px;
     height: 100%;
   }
