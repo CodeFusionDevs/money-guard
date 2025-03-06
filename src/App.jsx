@@ -13,7 +13,13 @@ import {
   getCategories,
   getTransactions,
 } from "./redux/transactions/operations";
-import { updateToken, clearToken } from "./redux/auth/operations";
+import {
+  updateToken,
+  clearToken,
+  getCurrentUser,
+} from "./redux/auth/operations";
+import PrivateRoutes from "./routes/PrivateRoutes";
+import RestrictedRoutes from "./routes/RestrictedRoutes";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +27,7 @@ function App() {
   const token = useSelector(selectToken);
 
   useEffect(() => {
+    dispatch(getCurrentUser());
     if (isLoggedIn) {
       dispatch(getTransactions());
       dispatch(getCategories());
@@ -29,17 +36,28 @@ function App() {
     } else {
       clearToken();
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<DashboardPage />}>
+        <Route
+          path="/"
+          element={<PrivateRoutes Component={<DashboardPage />} To="/login" />}
+        >
           <Route index element={<TransactionsList />} />
           <Route path="statistics" element={<StatisticsDashboard />} />
         </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/login"
+          element={<RestrictedRoutes Component={<LoginPage />} To="/" />}
+        />
+        <Route
+          path="/register"
+          element={<RestrictedRoutes Component={<RegisterPage />} To="/" />}
+        />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
