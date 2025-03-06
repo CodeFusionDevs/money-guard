@@ -1,6 +1,6 @@
 import styles from "./DashboardPage.module.css";
 // import { useSelector } from "react-redux";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation } from "react-router-dom";
 // import { selectUser } from "../../redux/auth/selectors";
 // import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import HeaderLayout from "../../layout/HeaderLayout";
@@ -226,7 +226,14 @@ const DashboardPage = () => {
         <div className={styles.leftContainer}>
           <div className={styles.leftContainerTabANDBalance}>
             <div className={styles.leftContainerTabs}>
-              <Link to="/" className={styles.homeIcon}>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.homeIcon} ${styles.activeLink}`
+                    : styles.homeIcon
+                }
+              >
                 <div className={styles.homeIconImg}>
                   <svg
                     width="18"
@@ -239,13 +246,21 @@ const DashboardPage = () => {
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M2 0C0.895431 0 0 0.89543 0 2V16C0 17.1046 0.89543 18 2 18H16C17.1046 18 18 17.1046 18 16V2C18 0.895431 17.1046 0 16 0H2ZM7.8 10.1176V14H4.8V8.82353H3L9 3L15 8.82353H13.2V14H10.2V10.1176H7.8Z"
-                      fill="#734AEF"
+                      fill="white"
+                      fillOpacity="0.4"
                     />
                   </svg>
                 </div>
                 {isMobile ? null : <p>Home</p>}
-              </Link>
-              <Link to="/statistics" className={styles.statisticsIcon}>
+              </NavLink>
+              <NavLink
+                to="/statistics"
+                className={({ isActive }) =>
+                  isActive
+                    ? `${styles.statisticsIcon} ${styles.activeLink}`
+                    : styles.statisticsIcon
+                }
+              >
                 <div className={styles.statisticsIconImg}>
                   <svg
                     width="18"
@@ -264,9 +279,16 @@ const DashboardPage = () => {
                   </svg>
                 </div>
                 {isMobile ? null : <p>Statistics</p>}
-              </Link>
+              </NavLink>
               {isMobile ? (
-                <Link to="/currency" className={styles.currencyIcon}>
+                <NavLink
+                  to="/currency"
+                  className={({ isActive }) =>
+                    isActive
+                      ? `${styles.currencyIcon} ${styles.activeLink}`
+                      : styles.currencyIcon
+                  }
+                >
                   <div className={styles.currencyIconImg}>
                     <svg
                       width="38"
@@ -284,7 +306,7 @@ const DashboardPage = () => {
                       />
                     </svg>
                   </div>
-                </Link>
+                </NavLink>
               ) : null}
             </div>
             {shouldShowBallanceTab && (

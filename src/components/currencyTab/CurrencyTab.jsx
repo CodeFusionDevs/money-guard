@@ -37,6 +37,12 @@ const CurrencyTab = () => {
     }
   }, [dispatch, currencyData]);
 
+  // Format currency values to 2 decimal places
+  const formatCurrency = (value) => {
+    if (!value) return "-";
+    return Number(value).toFixed(2);
+  };
+
   // Add debug logging to see what data we have
   console.log("Currency data in component:", currencyData);
 
@@ -59,12 +65,12 @@ const CurrencyTab = () => {
                 <td>USD</td>
                 <td>
                   {currencyData && currencyData.usd
-                    ? currencyData.usd.buy
+                    ? formatCurrency(currencyData.usd.buy)
                     : "-"}
                 </td>
                 <td>
                   {currencyData && currencyData.usd
-                    ? currencyData.usd.sell
+                    ? formatCurrency(currencyData.usd.sell)
                     : "-"}
                 </td>
               </tr>
@@ -72,12 +78,12 @@ const CurrencyTab = () => {
                 <td>EUR</td>
                 <td>
                   {currencyData && currencyData.eur
-                    ? currencyData.eur.buy
+                    ? formatCurrency(currencyData.eur.buy)
                     : "-"}
                 </td>
                 <td>
                   {currencyData && currencyData.eur
-                    ? currencyData.eur.sell
+                    ? formatCurrency(currencyData.eur.sell)
                     : "-"}
                 </td>
               </tr>
@@ -86,12 +92,16 @@ const CurrencyTab = () => {
         )}
         {!isTablet && (
           <div className={styles.currencyPeaks}>
-            <p>{currencyData && currencyData.usd
-                    ? currencyData.usd.buy
-                    : "-"}</p>
-            <p>{currencyData && currencyData.eur
-                    ? currencyData.eur.buy
-                    : "-"}</p>
+            <p>
+              {currencyData && currencyData.usd
+                ? formatCurrency(currencyData.usd.buy)
+                : "-"}
+            </p>
+            <p>
+              {currencyData && currencyData.eur
+                ? formatCurrency(currencyData.eur.buy)
+                : "-"}
+            </p>
           </div>
         )}
 

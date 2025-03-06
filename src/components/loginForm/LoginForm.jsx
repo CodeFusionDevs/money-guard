@@ -5,7 +5,7 @@ import { MdLock } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { loginSchema } from "../../validations/LoginFormVal/index";
 import FormButton from "../common/FormButton/FormButton";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Logo from "../../components/common/Logo/Logo";
 import InputFormField from "../InputFormField/InputFormField";
 import { motion } from "framer-motion";
@@ -58,13 +58,13 @@ export const LoginForm = () => {
                   text={"LogIn"}
                   variant={"multiColorButtton"}
                 />
-                <Link to="/register">
+                <NavLink to="/register">
                   <FormButton
                     type="button"
                     text={"Register"}
                     variant={"whiteButtton"}
                   />
-                </Link>
+                </NavLink>
               </div>
             </Form>
           </Formik>

@@ -101,7 +101,7 @@
 
 .homeIcon p {
   font-family: var(--font-family);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 18px;
   color: var(--white);
 }
@@ -250,7 +250,7 @@
 
   .homeIcon p {
     font-family: var(--font-family);
-    font-weight: 700;
+    font-weight: 400;
     font-size: 18px;
     color: var(--white);
   }
@@ -379,7 +379,7 @@
 
   .homeIcon p {
     font-family: var(--font-family);
-    font-weight: 700;
+    font-weight: 400;
     font-size: 18px;
     color: var(--white);
   }
@@ -425,7 +425,6 @@
     height: 380px;
     display: flex;
   }
-
 }
 
 @media (max-width: 768px) {
@@ -460,5 +459,18 @@
     margin-bottom: 20px;
     width: 100%;
   }
+}
+
+/* Active link styling */
+.activeLink p {
+  font-weight: 700;
+  color: #734aef;
+}
+
+.activeLink .homeIconImg svg path,
+.activeLink .statisticsIconImg svg path,
+.activeLink .currencyIconImg svg path {
+  fill: #734aef;
+  fill-opacity: 1;
 }
 
