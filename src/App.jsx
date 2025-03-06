@@ -8,11 +8,7 @@ import TransactionsList from "./components/transactionsList/TransactionsList";
 import StatisticsDashboard from "./components/statisticsDashboard/StatisticsDashboard";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectIsLoggedIn, selectToken } from "./redux/auth/selectors";
-import {
-  getCategories,
-  getTransactions,
-} from "./redux/transactions/operations";
+import { selectToken } from "./redux/auth/selectors";
 import {
   updateToken,
   clearToken,

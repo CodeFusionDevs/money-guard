@@ -49,13 +49,18 @@ const TransactionsList = () => {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (transactionToDelete) {
-      dispatch(deleteTransaction(transactionToDelete));
-      setShowDeleteConfirm(false);
-      setTransactionToDelete(null);
-      // to update the transactions list
-      dispatch(getTransactions());
+      try {
+        // Wait for the deletion to complete
+        await dispatch(deleteTransaction(transactionToDelete)).unwrap();
+        // Then refresh the transactions list
+        dispatch(getTransactions());
+        setShowDeleteConfirm(false);
+        setTransactionToDelete(null);
+      } catch (error) {
+        console.error("Failed to delete transaction:", error);
+      }
     }
   };
 
