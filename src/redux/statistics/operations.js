@@ -7,12 +7,14 @@ const getStatistics = createAsyncThunk(
   "statistics/getStatistics",
   async (date, thunkAPI) => {
     try {
-      const response = await axios.get("/statistics", {
+      console.log("getStatistics dates", date);
+      const response = await axios.get("api/transactions-summary", {
         params: {
           month: date.month,
           year: date.year,
         },
       });
+      console.log("Get Statistics response", response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
