@@ -52,9 +52,14 @@ const editTransaction = createAsyncThunk(
   "transactions/editTransaction",
   async (transactionData, thunkAPI) => {
     try {
-      const response = await axios.put(
+      const response = await axios.patch(
         `${BASE_URL}/api/transactions/${transactionData.id}`,
-        transactionData
+        {
+          transactionDate: transactionData.transactionDate,
+          type: transactionData.type,
+          comment: transactionData.comment,
+          amount: transactionData.amount,
+        }
       );
       return response.data;
     } catch (error) {

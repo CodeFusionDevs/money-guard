@@ -2,8 +2,10 @@ import { useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTransactionCategories } from "../../redux/transactions/selectors";
-import { getCategories } from "../../redux/transactions/operations";
-import { editTransaction } from "../../redux/transactions/operations";
+import {
+  editTransaction,
+  getTransactions,
+} from "../../redux/transactions/operations";
 import { FiCalendar } from "react-icons/fi";
 import { editSchema } from "../../validations/EditSchema/index";
 import { useMediaQuery } from "react-responsive";
@@ -14,8 +16,6 @@ import Slash from "./Slash";
 import clsx from "clsx";
 import styles from "./ModalEditTransactions.module.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { getTransactions } from "../../redux/transactions/operations";
-
 
 const useMedia = () => {
   const isMobile = useMediaQuery({
@@ -34,6 +34,12 @@ const useMedia = () => {
   };
 };
 
+// Helper function to find category by ID
+const getCategoryById = (categoryId, categories) => {
+  if (!categories || !categoryId) return null;
+  return categories.find((category) => category.id === categoryId);
+};
+
 const EditModal = ({ closeModal, item }) => {
   // eslint-disable-next-line no-unused-vars
   const [isOnIncomeTab, setIsOnIncomeTab] = useState(
@@ -43,24 +49,36 @@ const EditModal = ({ closeModal, item }) => {
   const { isTablet } = useMedia();
   const dispatch = useDispatch();
 
-  const [startDate, setStartDate] = useState(item.transactionDate);
+  const [startDate, setStartDate] = useState(
+    item.transactionDate ? new Date(item.transactionDate) : new Date()
+  );
 
   const initialValues = {
     amount: Math.abs(item.amount),
     comment: item.comment,
-    category: getCategories(item.categoryId, categories),
+    category: getCategoryById(item.categoryId, categories),
   };
   const handleSubmit = (values, { setSubmitting, setStatus }) => {
     setSubmitting(true);
-    dispatch(
-      editTransaction({
-        id: item.id,
-        transactionDate: startDate,
-        type: isOnIncomeTab ? "INCOME" : "EXPENSE",
-        comment: values.comment,
-        amount: isOnIncomeTab ? values.amount : 0 - values.amount,
-      })
-    )
+    console.log("Editten gelen values:", values);
+
+    // Format the date as YYYY-MM-DD
+    const formattedDate =
+      startDate instanceof Date
+        ? startDate.toISOString().split("T")[0]
+        : startDate;
+
+    const transactionData = {
+      id: item.id,
+      transactionDate: formattedDate,
+      type: isOnIncomeTab ? "INCOME" : "EXPENSE",
+      comment: values.comment,
+      amount: isOnIncomeTab ? values.amount : 0 - values.amount,
+    };
+
+    console.log("Sending transaction data:", transactionData);
+
+    dispatch(editTransaction(transactionData))
       .unwrap()
       .then(() => {
         dispatch(getTransactions())
@@ -70,6 +88,7 @@ const EditModal = ({ closeModal, item }) => {
           });
       })
       .catch((error) => {
+        console.error("Edit transaction error:", error);
         setStatus({ success: false, error: error });
         setSubmitting(false);
       });
@@ -159,7 +178,7 @@ const EditModal = ({ closeModal, item }) => {
 
               <div className={styles.buttonsWrapper}>
                 <FormButton
-                  type={"submit"}
+                  type="submit"
                   text={"Save"}
                   variant={"multiColorButtton"}
                   isDisabled={isSubmitting}

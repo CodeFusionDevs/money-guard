@@ -12,7 +12,7 @@ const FormButton = ({
   return (
     <button
       type={type}
-      onClick={onClick || handlerFunction}
+      onClick={type !== "submit" ? onClick || handlerFunction : undefined}
       className={clsx(
         styles.formButton,
         variant === "multiColorButtton" && styles.multiColorButtton,
