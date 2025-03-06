@@ -48,7 +48,7 @@ const StatisticsDashboard = () => {
   const customSelectStyles = {
     control: (provided) => ({
       ...provided,
-      width: "280px",
+      width: "100%",
       height: "50px",
       backgroundColor: "transparent",
       borderRadius: "8px",
@@ -68,12 +68,12 @@ const StatisticsDashboard = () => {
       "&:hover": {
         backgroundColor: "rgba(106, 70, 165, 0.9)",
       },
-      padding: "10px 20px",
+      padding: "0",
     }),
     menu: (provided) => ({
       ...provided,
       borderRadius: "8px",
-      width: "280px",
+      width: "100%",
       height: "157px",
       backdropFilter: "blur(100px)",
       boxShadow: "0 4px 60px 0 rgba(0, 0, 0, 0.25)",
@@ -96,7 +96,7 @@ const StatisticsDashboard = () => {
         background: "rgba(255, 255, 255, 0.5)",
         borderRadius: "2px",
       },
-      padding: "5px 0",
+      padding: "0",
     }),
     singleValue: (provided) => ({
       ...provided,

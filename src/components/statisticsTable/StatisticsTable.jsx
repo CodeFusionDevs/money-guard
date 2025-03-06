@@ -44,7 +44,7 @@ const StatisticsTable = () => {
         </div>
 
         <div className={styles.tableBody}>
-          {categoriesData.map((category) => (
+          {categoriesData.slice(1).map((category) => (
             <div key={category.name} className={styles.tableRow}>
               <div className={styles.categoryCell}>
                 <div
