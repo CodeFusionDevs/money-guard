@@ -134,49 +134,53 @@ const StatisticsDashboard = () => {
           <StatisticsChart />
         </div>
       </div>
-      <Formik
-        initialValues={{
-          month: monthOptions.find((option) => option.value === selectedMonth),
-          year: yearOptions.find((option) => option.value === selectedYear),
-        }}
-        onSubmit={handleSubmit}
-        enableReinitialize
-      >
-        {({ values, setFieldValue }) => (
-          <Form className={styles.statisticsFiltersContainer}>
-            <div className={styles.statisticsFilterYear}>
-              <Select
-                name="year"
-                value={values.year}
-                onChange={(option) => {
-                  setFieldValue("year", option);
-                  setSelectedYear(option.value);
-                }}
-                options={yearOptions}
-                styles={customSelectStyles}
-                isSearchable={false}
-                classNamePrefix="react-select"
-              />
-            </div>
-            <div className={styles.statisticsFilterMonth}>
-              <Select
-                name="month"
-                value={values.month}
-                onChange={(option) => {
-                  setFieldValue("month", option);
-                  setSelectedMonth(option.value);
-                }}
-                options={monthOptions}
-                styles={customSelectStyles}
-                isSearchable={false}
-                classNamePrefix="react-select"
-              />
-            </div>
-          </Form>
-        )}
-      </Formik>
-      <div className={styles.statisticsTableContainer}>
-        <StatisticsTable />
+      <div className={styles.filterAndTableContainer}>
+        <Formik
+          initialValues={{
+            month: monthOptions.find(
+              (option) => option.value === selectedMonth
+            ),
+            year: yearOptions.find((option) => option.value === selectedYear),
+          }}
+          onSubmit={handleSubmit}
+          enableReinitialize
+        >
+          {({ values, setFieldValue }) => (
+            <Form className={styles.statisticsFiltersContainer}>
+              <div className={styles.statisticsFilterYear}>
+                <Select
+                  name="year"
+                  value={values.year}
+                  onChange={(option) => {
+                    setFieldValue("year", option);
+                    setSelectedYear(option.value);
+                  }}
+                  options={yearOptions}
+                  styles={customSelectStyles}
+                  isSearchable={false}
+                  classNamePrefix="react-select"
+                />
+              </div>
+              <div className={styles.statisticsFilterMonth}>
+                <Select
+                  name="month"
+                  value={values.month}
+                  onChange={(option) => {
+                    setFieldValue("month", option);
+                    setSelectedMonth(option.value);
+                  }}
+                  options={monthOptions}
+                  styles={customSelectStyles}
+                  isSearchable={false}
+                  classNamePrefix="react-select"
+                />
+              </div>
+            </Form>
+          )}
+        </Formik>
+        <div className={styles.statisticsTableContainer}>
+          <StatisticsTable />
+        </div>
       </div>
     </div>
   );

@@ -4,10 +4,11 @@
   flex-direction: column;
   background-color: transparent;
   margin: 0 0 20px 0;
+  align-items: center;
 }
 
 .chartWrapper {
-  width: 100%;
+  width: 280px;
   height: 280px;
   display: flex;
   justify-content: center;
