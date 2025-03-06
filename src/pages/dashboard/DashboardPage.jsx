@@ -1,6 +1,6 @@
 import styles from "./DashboardPage.module.css";
 // import { useSelector } from "react-redux";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 // import { selectUser } from "../../redux/auth/selectors";
 // import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import HeaderLayout from "../../layout/HeaderLayout";
@@ -17,6 +17,15 @@ const DashboardPage = () => {
   // console.log("In DashboardPage user.name", user.username);
 
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+  const location = useLocation();
+  const isStatisticsPage = location.pathname === "/statistics";
+  const isCurrencyPage = location.pathname === "/currency";
+
+  // Hide BallanceTab on mobile view when on statistics or currency pages
+  const shouldShowBallanceTab = !(
+    isMobile &&
+    (isStatisticsPage || isCurrencyPage)
+  );
 
   return (
     <div className={styles.container}>
@@ -257,7 +266,7 @@ const DashboardPage = () => {
                 {isMobile ? null : <p>Statistics</p>}
               </Link>
               {isMobile ? (
-                <div className={styles.currencyIcon}>
+                <Link to="/currency" className={styles.currencyIcon}>
                   <div className={styles.currencyIconImg}>
                     <svg
                       width="38"
@@ -275,12 +284,14 @@ const DashboardPage = () => {
                       />
                     </svg>
                   </div>
-                </div>
+                </Link>
               ) : null}
             </div>
-            <div className={styles.leftContainerBallance}>
-              <BallanceTab />
-            </div>
+            {shouldShowBallanceTab && (
+              <div className={styles.leftContainerBallance}>
+                <BallanceTab />
+              </div>
+            )}
           </div>
           <div className={styles.leftContainerCurrency}>
             <CurrencyTab />
