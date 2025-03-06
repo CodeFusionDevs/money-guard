@@ -23,20 +23,17 @@ import RestrictedRoutes from "./routes/RestrictedRoutes";
 
 function App() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const token = useSelector(selectToken);
 
   useEffect(() => {
-    dispatch(getCurrentUser());
-    if (isLoggedIn) {
-      dispatch(getTransactions());
-      dispatch(getCategories());
-
+    if (token) {
+      console.log("token exists", token);
       updateToken(token);
     } else {
+      console.log("token does not exist");
       clearToken();
     }
-
+    dispatch(getCurrentUser());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

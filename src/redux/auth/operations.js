@@ -8,7 +8,9 @@ axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const updateToken = (token) => {
+  console.log("token updating", token);
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  console.log("token updated", token);
 };
 
 const clearToken = () => {

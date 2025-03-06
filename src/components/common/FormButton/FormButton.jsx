@@ -7,11 +7,12 @@ const FormButton = ({
   handlerFunction,
   variant,
   isDisabled = false,
+  onClick,
 }) => {
   return (
     <button
       type={type}
-      onClick={handlerFunction}
+      onClick={onClick || handlerFunction}
       className={clsx(
         styles.formButton,
         variant === "multiColorButtton" && styles.multiColorButtton,
@@ -19,7 +20,8 @@ const FormButton = ({
         variant === "btn_delete" && [
           styles.multiColorButtton,
           styles.btn_delete,
-        ]
+        ],
+        variant === "btn_cancel" && [styles.whiteButtton, styles.btn_cancel]
       )}
       disabled={isDisabled}
     >

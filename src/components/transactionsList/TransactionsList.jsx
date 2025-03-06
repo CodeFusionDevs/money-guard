@@ -10,6 +10,12 @@ import { deleteTransaction } from "../../redux/transactions/operations.js";
 import FormButton from "../common/FormButton/FormButton.jsx";
 import EditModal from "../modalEditTransaction/ModalEditTransactions.jsx";
 import { useMediaQuery } from "react-responsive";
+import { useEffect } from "react";
+import {
+  getTransactions,
+  getCategories,
+} from "../../redux/transactions/operations.js";
+
 const TransactionsList = () => {
   const transactions = useSelector(selectTransactions);
   const categories = useSelector(selectTransactionCategories);
@@ -19,6 +25,8 @@ const TransactionsList = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [transactionToDelete, setTransactionToDelete] = useState(null);
 
   const getCategoryName = (categoryId) => {
     const category = categories.find((cat) => cat.id === categoryId);
@@ -36,8 +44,24 @@ const TransactionsList = () => {
       .replace(/\//g, ".");
   };
 
-  const handleDelete = (id) => {
-    dispatch(deleteTransaction(id));
+  const handleDeleteClick = (id) => {
+    setTransactionToDelete(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    if (transactionToDelete) {
+      dispatch(deleteTransaction(transactionToDelete));
+      setShowDeleteConfirm(false);
+      setTransactionToDelete(null);
+      // to update the transactions list
+      dispatch(getTransactions());
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteConfirm(false);
+    setTransactionToDelete(null);
   };
 
   const handleEdit = (transaction) => {
@@ -49,6 +73,11 @@ const TransactionsList = () => {
     setIsModalOpen(false);
     setSelectedTransaction(null);
   };
+
+  useEffect(() => {
+    dispatch(getTransactions());
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <>
@@ -110,7 +139,7 @@ const TransactionsList = () => {
                         type="button"
                         variant={"btn_delete"}
                         text={"Delete"}
-                        onClick={() => handleDelete(transaction.id)}
+                        onClick={() => handleDeleteClick(transaction.id)}
                       />
                     </div>
                     <div className={styles.mobileTableActionButtonsEdit}>
@@ -203,7 +232,7 @@ const TransactionsList = () => {
                         type="button"
                         variant={"btn_delete"}
                         text={"Delete"}
-                        onClick={() => handleDelete(transaction.id)}
+                        onClick={() => handleDeleteClick(transaction.id)}
                       />
                     </td>
                   </tr>
@@ -219,6 +248,29 @@ const TransactionsList = () => {
       )}
       {isModalOpen && selectedTransaction && (
         <EditModal closeModal={closeModal} item={selectedTransaction} />
+      )}
+
+      {showDeleteConfirm && (
+        <div className={styles.confirmOverlay}>
+          <div className={styles.confirmDialog}>
+            <h3>Delete Transaction</h3>
+            <p>Are you sure you want to delete this transaction?</p>
+            <div className={styles.confirmButtons}>
+              <FormButton
+                type="button"
+                variant={"btn_cancel"}
+                text={"Cancel"}
+                onClick={cancelDelete}
+              />
+              <FormButton
+                type="button"
+                variant={"btn_delete"}
+                text={"Delete"}
+                onClick={confirmDelete}
+              />
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
