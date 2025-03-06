@@ -1,9 +1,13 @@
-import styles from "./EmptyHistory.module.css";
+import styles from "./EmptyTransaction.module.css";
 
-const EmptyHistory = () => {
+const EmptyTransaction = () => {
   return (
     <div className={styles.wrapper}>
-      <img src="/public/emptytransaction.webp.webp" alt="page-not-found" width="240" />
+      <img
+        src="/public/emptytransaction.webp.webp"
+        alt="page-not-found"
+        width="240"
+      />
       <div className={styles.content}>
         <h4 className={styles.title}>Transaction history is empty now.</h4>
       </div>
@@ -11,4 +15,4 @@ const EmptyHistory = () => {
   );
 };
 
-export default EmptyHistory;
+export default EmptyTransaction;
