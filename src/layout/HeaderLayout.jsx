@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import Logo from "../components/common/Logo/Logo";
 import FormButton from "../components/common/FormButton/FormButton";
 import { useState, useEffect } from "react";
-import styles from "./headerLayout.module.css";
+import styles from "./HeaderLayout.module.css";
 
 const HeaderLayout = () => {
   const user = useSelector(selectUser);
@@ -20,7 +20,7 @@ const HeaderLayout = () => {
   };
 
   const handleLogoutClick = () => {
-    dispatch(logout()); 
+    dispatch(logout());
     setIsModalOpen(false);
   };
 
@@ -124,7 +124,7 @@ const HeaderLayout = () => {
       </div>
 
       {/* Modal */}
-      
+
       {isModalOpen && (
         <div className={styles.wrapper} onClick={handleOutsideClick}>
           <div className={styles.modalContent}>
