@@ -3,7 +3,7 @@ import styles from "./Logo.module.css";
 
 const Logo = ({ type }) => {
   return (
-    <div className={clsx(styles.logo, type === "header" && s.headerLogo)}>
+    <div className={clsx(styles.logo, type === "header" && styles.headerLogo)}>
       <img
         src="../../../../public/money-guard.svg"
         alt="Money Guard Logo"

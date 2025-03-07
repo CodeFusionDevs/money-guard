@@ -16,9 +16,7 @@ const CurrencyTab = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
     const shouldFetchData = () => {
-     
       if (!currencyData || !currencyData.date) return true;
 
       const oneHourInMs = 60 * 60 * 1000;
@@ -30,6 +28,7 @@ const CurrencyTab = () => {
 
     if (shouldFetchData()) {
       async function fetchData() {
+        // eslint-disable-next-line no-unused-vars
         const result = await dispatch(fetchCurrency());
       }
       fetchData();
