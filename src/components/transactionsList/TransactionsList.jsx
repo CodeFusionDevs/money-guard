@@ -285,6 +285,7 @@ const TransactionsList = () => {
                 variant={"btn_delete"}
                 text={"Delete"}
                 onClick={confirmDelete}
+                hasLoading={true}
               />
             </div>
           </div>

@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const initialValues = {
     email: "",
     password: "",
@@ -56,7 +55,9 @@ export const LoginForm = () => {
                   type="submit"
                   text={"LogIn"}
                   variant={"multiColorButtton"}
+                  hasLoading={true}
                 />
+
                 <NavLink to="/register">
                   <FormButton
                     type="button"

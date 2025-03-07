@@ -189,6 +189,7 @@ const Modal = ({ isOpen, onClose }) => {
                   type="submit"
                   text={"ADD"}
                   variant={"multiColorButtton"}
+                  hasLoading={true}
                 />
                 <FormButton
                   type="button"
