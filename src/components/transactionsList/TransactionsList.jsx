@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./transactionsList.module.css";
+import styles from "./TransactionsList.module.css";
 import ButtonAddTransactions from "../buttonAddTransactions/ButtonAddTransactions";
 import {
   selectTransactions,

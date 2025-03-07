@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import styles from "./statisticsChart.module.css";
+import styles from "./StatisticsChart.module.css";
 import {
   selectStatistics,
   selectIsLoading,

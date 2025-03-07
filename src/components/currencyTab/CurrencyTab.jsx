@@ -1,5 +1,5 @@
 import { useMediaQuery } from "react-responsive";
-import styles from "./currencyTab.module.css";
+import styles from "./CurrencyTab.module.css";
 import { useSelector } from "react-redux";
 import {
   selectCurrency,
