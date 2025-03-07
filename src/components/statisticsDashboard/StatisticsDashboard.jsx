@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import Select from "react-select";
-import styles from "./statisticsDashboard.module.css";
+import styles from "./StatisticsDashboard.module.css";
 import StatisticsTable from "../statisticsTable/StatisticsTable";
 import StatisticsChart from "../statisticsChart/StatisticsChart";
 import { getStatistics } from "../../redux/statistics/operations";
@@ -31,7 +31,6 @@ const StatisticsDashboard = () => {
     { value: "12", label: "December" },
   ];
 
-  
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from({ length: 6 }, (_, i) => ({
     value: String(currentYear - i),
