@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://codefusiondevs.github.io/moneyguard/",
+  "homepage": "https://codefusiondevs.github.io/",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/money-guard/",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",

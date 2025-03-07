@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/money-guard">
       <Routes>
         <Route
           path="/"
@@ -49,7 +49,7 @@ function App() {
           path="/register"
           element={<RestrictedRoutes Component={<RegisterPage />} To="/" />}
         />
-        <Route path="/*" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <ToastContainer />
     </BrowserRouter>

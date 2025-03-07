@@ -8,6 +8,8 @@ import {
 import { fetchCurrency } from "../../redux/currency/operations";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+// Import the chart image
+import chartImage from "../../assets/images/chart.png";
 
 const CurrencyTab = () => {
   const isTablet = useMediaQuery({ query: "(max-width: 1279px)" });
@@ -100,8 +102,7 @@ const CurrencyTab = () => {
         )}
 
         <div className={styles.currencyTableGraph}>
-          {/* Vercel sıkıntı çıkarabilir */}
-          <img src="src\components\currencyTab\chart.png" alt="volume" />
+          <img src={chartImage} alt="volume" />
         </div>
       </div>
     </>
