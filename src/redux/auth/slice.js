@@ -101,6 +101,7 @@ const authSlice = createSlice({
         };
         state.token = null;
         state.isLoggedIn = false;
+        state.isRefreshing = false;
         clearToken();
       })
       .addCase(logout.pending, (state) => {
@@ -118,6 +119,7 @@ const authSlice = createSlice({
         };
         state.token = null;
         state.isLoggedIn = false;
+        state.isRefreshing = false;
         clearToken();
       });
   },

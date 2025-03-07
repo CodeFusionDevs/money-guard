@@ -9,6 +9,7 @@ import { currencyReducer } from "./currency/slice";
 const persistConfig = {
   key: "Authentication",
   storage,
+  whitelist: ["token"],
 };
 
 const currencyPersistConfig = {

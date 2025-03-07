@@ -178,6 +178,7 @@ const EditModal = ({ closeModal, item }) => {
                   text={"Save"}
                   variant={"multiColorButtton"}
                   isDisabled={isSubmitting}
+                  hasLoading={true}
                 />
                 <FormButton
                   type={"button"}
