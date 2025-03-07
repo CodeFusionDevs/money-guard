@@ -1,8 +1,9 @@
 {
-  "name": "money-guard",
+  "name": "moneyguard",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://codefusiondevs.github.io/moneyguard/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
