@@ -53,9 +53,7 @@ const TransactionsList = () => {
   const confirmDelete = async () => {
     if (transactionToDelete) {
       try {
-        // Wait for the deletion to complete
         await dispatch(deleteTransaction(transactionToDelete)).unwrap();
-        // Then refresh the transactions list
         dispatch(getTransactions());
         setShowDeleteConfirm(false);
         setTransactionToDelete(null);

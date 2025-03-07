@@ -8,13 +8,11 @@ import {
 const StatisticsTable = () => {
   const statistics = useSelector(selectStatistics);
   const isLoading = useSelector(selectIsLoading);
-  // Format number with spaces as thousand separators
   const formatNumber = (number) => {
     if (!number && number !== 0) return "0.00";
     return number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
-  // Define category colors
   const categoryColors = {
     "Main expenses": "#FFD700", // Yellow
     Products: "#FFCCCB", // Light pink
@@ -44,22 +42,25 @@ const StatisticsTable = () => {
         </div>
 
         <div className={styles.tableBody}>
-          {categoriesData.slice(1).map((category) => (
-            <div key={category.name} className={styles.tableRow}>
-              <div className={styles.categoryCell}>
-                <div
-                  className={styles.colorIndicator}
-                  style={{
-                    backgroundColor: categoryColors[category.name] || "#808080",
-                  }}
-                ></div>
-                {category.name}
+          {categoriesData
+            .filter((category) => category.name !== "INCOME")
+            .map((category) => (
+              <div key={category.name} className={styles.tableRow}>
+                <div className={styles.categoryCell}>
+                  <div
+                    className={styles.colorIndicator}
+                    style={{
+                      backgroundColor:
+                        categoryColors[category.name] || "#808080",
+                    }}
+                  ></div>
+                  {category.name}
+                </div>
+                <div className={styles.sumCell}>
+                  {formatNumber(category.total)}
+                </div>
               </div>
-              <div className={styles.sumCell}>
-                {formatNumber(category.total)}
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         <div className={styles.tableSummary}>

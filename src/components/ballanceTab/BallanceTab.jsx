@@ -1,16 +1,18 @@
 import styles from "./BallanceTab.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectBalance } from "../../redux/auth/selectors";
+import { getCurrentUser } from "../../redux/auth/operations";
+import { useEffect } from "react";
 
 const BallanceTab = () => {
   const balance = useSelector(selectBalance);
+  const dispatch = useDispatch();
+  const transactions = useSelector((state) => state.transactions.transactions);
 
-  if (balance === "") {
-    console.log("In BallanceTab balance is not fetched");
-  } else {
-    console.log("In BallanceTab balance is", balance);
-  }
-
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch, transactions]);
+  
   return (
     <div className={styles.container}>
       <p className={styles.title}>Your Balance</p>

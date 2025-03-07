@@ -12,6 +12,7 @@ import * as Yup from "yup";
 import { selectTransactionCategories } from "../../redux/transactions/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import { createTransaction } from "../../redux/transactions/operations";
+import { getCurrentUser } from "../../redux/auth/operations";
 import { customStyles } from "./customStyles";
 
 const Modal = ({ isOpen, onClose }) => {
@@ -57,6 +58,7 @@ const Modal = ({ isOpen, onClose }) => {
       values.categoryId = categories[10].id;
     }
     dispatch(createTransaction(values));
+    dispatch(getCurrentUser());
     onClose();
   };
 

@@ -19,7 +19,6 @@ const currencySlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.items = action.payload;
-        console.log(" Currency state", action.payload);
       })
       .addCase(fetchCurrency.rejected, (state, action) => {
         state.isLoading = false;

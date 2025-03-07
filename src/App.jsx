@@ -9,28 +9,24 @@ import StatisticsDashboard from "./components/statisticsDashboard/StatisticsDash
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectToken } from "./redux/auth/selectors";
-import {
-  updateToken,
-  clearToken,
-  getCurrentUser,
-} from "./redux/auth/operations";
+import { updateToken, getCurrentUser } from "./redux/auth/operations";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import RestrictedRoutes from "./routes/RestrictedRoutes";
 import CurrencyTab from "./components/currencyTab/CurrencyTab";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
 
   useEffect(() => {
-    if (token) {
-      console.log("token exists", token);
-      updateToken(token);
-    } else {
-      console.log("token does not exist");
-      clearToken();
+    async function fetchUser() {
+      if (token) {
+        updateToken(token);
+        await dispatch(getCurrentUser());
+      }
     }
-    dispatch(getCurrentUser());
+    fetchUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,6 +51,7 @@ function App() {
         />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

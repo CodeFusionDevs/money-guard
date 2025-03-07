@@ -3,25 +3,27 @@ import axios from "axios";
 
 const BASE_URL = "https://wallet.b.goit.study";
 
-// AXIOS SETTINGS
+
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const updateToken = (token) => {
-  console.log("token updating", token);
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  console.log("token updated", token);
 };
 
 const clearToken = () => {
   axios.defaults.headers.common.Authorization = null;
 };
 
-// ------------------------------------------------------------
-// USERS CONTROLLER
+
 const getCurrentUser = createAsyncThunk(
   "auth/getCurrentUser",
   async (_, thunkAPI) => {
+
+    const token = thunkAPI.getState().auth.token;
+    if (token) {
+      updateToken(token);
+    }
     try {
       const response = await axios.get(`${BASE_URL}/api/users/current`);
       return response.data;
@@ -30,10 +32,8 @@ const getCurrentUser = createAsyncThunk(
     }
   }
 );
-// ------------------------------------------------------------
 
-// ------------------------------------------------------------
-// AUTH CONTROLLER
+
 const signup = createAsyncThunk(
   "auth/signup",
   async (registerCredentials, thunkAPI) => {
@@ -72,6 +72,5 @@ const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
-// ------------------------------------------------------------
 
 export { updateToken, clearToken, getCurrentUser, signup, login, logout };

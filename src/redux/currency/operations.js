@@ -11,15 +11,12 @@ export const fetchCurrency = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${BASE_URL}/bank/currency`);
-      console.log(" Currency response", response);
       const usd = response.data.find(
         (item) => item.currencyCodeA === 840 && item.currencyCodeB === 980
       );
-      console.log(" USD", usd);
       const eur = response.data.find(
         (item) => item.currencyCodeA === 978 && item.currencyCodeB === 980
       );
-      console.log(" EUR", eur);
       const allData = {
         date: Date.now(),
         usd: { buy: usd.rateBuy.toFixed(2), sell: usd.rateSell.toFixed(2) },

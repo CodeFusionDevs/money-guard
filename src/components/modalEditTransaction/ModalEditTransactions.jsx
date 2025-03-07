@@ -16,7 +16,7 @@ import Slash from "./Slash";
 import clsx from "clsx";
 import styles from "./ModalEditTransactions.module.css";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { getCurrentUser } from "../../redux/auth/operations";
 const useMedia = () => {
   const isMobile = useMediaQuery({
     query: "(min-width: 320px)",
@@ -34,7 +34,6 @@ const useMedia = () => {
   };
 };
 
-// Helper function to find category by ID
 const getCategoryById = (categoryId, categories) => {
   if (!categories || !categoryId) return null;
   return categories.find((category) => category.id === categoryId);
@@ -60,9 +59,7 @@ const EditModal = ({ closeModal, item }) => {
   };
   const handleSubmit = (values, { setSubmitting, setStatus }) => {
     setSubmitting(true);
-    console.log("Editten gelen values:", values);
 
-    // Format the date as YYYY-MM-DD
     const formattedDate =
       startDate instanceof Date
         ? startDate.toISOString().split("T")[0]
@@ -76,14 +73,13 @@ const EditModal = ({ closeModal, item }) => {
       amount: isOnIncomeTab ? values.amount : 0 - values.amount,
     };
 
-    console.log("Sending transaction data:", transactionData);
-
     dispatch(editTransaction(transactionData))
       .unwrap()
       .then(() => {
         dispatch(getTransactions())
           .unwrap()
           .then(() => {
+            dispatch(getCurrentUser());
             closeModal();
           });
       })

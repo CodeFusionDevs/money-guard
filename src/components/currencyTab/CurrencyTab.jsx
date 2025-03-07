@@ -16,9 +16,9 @@ const CurrencyTab = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Fetch currency data once per hour
+
     const shouldFetchData = () => {
-      // If currency is undefined or no date exists or an hour has passed since last fetch
+     
       if (!currencyData || !currencyData.date) return true;
 
       const oneHourInMs = 60 * 60 * 1000;
@@ -31,20 +31,15 @@ const CurrencyTab = () => {
     if (shouldFetchData()) {
       async function fetchData() {
         const result = await dispatch(fetchCurrency());
-        console.log(" Currency", result);
       }
       fetchData();
     }
   }, [dispatch, currencyData]);
 
-  // Format currency values to 2 decimal places
   const formatCurrency = (value) => {
     if (!value) return "-";
     return Number(value).toFixed(2);
   };
-
-  // Add debug logging to see what data we have
-  console.log("Currency data in component:", currencyData);
 
   return (
     <>

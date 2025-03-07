@@ -6,6 +6,8 @@ import {
   editTransaction,
   deleteTransaction,
 } from "./operations";
+import { toast } from "react-toastify";
+import { getCurrentUser } from "../auth/operations";
 
 const initialState = {
   transactions: [],
@@ -37,7 +39,6 @@ const transactionsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getTransactions.fulfilled, (state, action) => {
-        console.log("getTransactions fulfilled:", action.payload);
         state.transactions = action.payload;
         state.isLoading = false;
         state.error = null;
@@ -46,12 +47,10 @@ const transactionsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getTransactions.rejected, (state, action) => {
-        console.log("getTransactions rejected:", action.payload);
         state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(getCategories.fulfilled, (state, action) => {
-        console.log("getCategories fulfilled:", action.payload);
         state.transactionCategories = action.payload;
         state.isLoading = false;
         state.error = null;
@@ -60,12 +59,11 @@ const transactionsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getCategories.rejected, (state, action) => {
-        console.log("getCategories rejected:", action.payload);
         state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(createTransaction.fulfilled, (state, action) => {
-        console.log("createTransaction fulfilled:", action.payload);
+        toast.success("Transaction created successfully");
         state.transactions.push(action.payload);
         state.isLoading = false;
         state.error = null;
@@ -74,14 +72,13 @@ const transactionsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(createTransaction.rejected, (state, action) => {
-        console.log("createTransaction rejected:", action.payload);
+        toast.error("Transaction creation failed");
         state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(editTransaction.fulfilled, (state, action) => {
-        console.log("editTransaction fulfilled:", action.payload);
+        toast.success("Transaction updated successfully");
         state.transactions = state.transactions.map((transaction) =>
-          // Burada bi sıkıntı var sanki. Ama yok da gibi.
           transaction.id === action.payload.id ? action.payload : transaction
         );
         state.isLoading = false;
@@ -91,23 +88,24 @@ const transactionsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(editTransaction.rejected, (state, action) => {
-        console.log("editTransaction rejected:", action.payload);
+        toast.error("Transaction update failed");
         state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(deleteTransaction.fulfilled, (state, action) => {
-        console.log("deleteTransaction fulfilled:", action.payload);
+        toast.success("Transaction deleted successfully");
         state.transactions = state.transactions.filter(
           (transaction) => transaction.id !== action.payload.id
         );
         state.isLoading = false;
         state.error = null;
+        getCurrentUser();
       })
       .addCase(deleteTransaction.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(deleteTransaction.rejected, (state, action) => {
-        console.log("deleteTransaction rejected:", action.payload);
+        toast.error("Transaction deletion failed");
         state.isLoading = false;
         state.error = action.payload;
       });

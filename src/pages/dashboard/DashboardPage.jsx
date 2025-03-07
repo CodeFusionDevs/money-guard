@@ -1,27 +1,16 @@
 import styles from "./DashboardPage.module.css";
-// import { useSelector } from "react-redux";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
-// import { selectUser } from "../../redux/auth/selectors";
-// import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import HeaderLayout from "../../layout/HeaderLayout";
 import BallanceTab from "../../components/ballanceTab/BallanceTab";
 import CurrencyTab from "../../components/currencyTab/CurrencyTab";
 import { useMediaQuery } from "react-responsive";
 
 const DashboardPage = () => {
-  // const user = useSelector(selectUser);
-  // const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  // console.log("In DashboardPage user", user);
-  // console.log("In DashboardPage isLoggedIn", isLoggedIn);
-  // console.log("In DashboardPage user.name", user.username);
-
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const location = useLocation();
   const isStatisticsPage = location.pathname === "/statistics";
   const isCurrencyPage = location.pathname === "/currency";
 
-  // Hide BallanceTab on mobile view when on statistics or currency pages
   const shouldShowBallanceTab = !(
     isMobile &&
     (isStatisticsPage || isCurrencyPage)

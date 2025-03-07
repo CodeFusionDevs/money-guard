@@ -7,14 +7,12 @@ import {
   selectIsLoading,
 } from "../../redux/statistics/selectors";
 
-// Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const StatisticsChart = () => {
   const statistics = useSelector(selectStatistics);
   const isLoading = useSelector(selectIsLoading);
 
-  // Define category colors
   const categoryColors = {
     "Main expenses": "#FFD700", // Yellow
     Products: "#FFCCCB", // Light pink
@@ -35,14 +33,12 @@ const StatisticsChart = () => {
   const expenseSummary = statistics.expenseSummary || 0;
   const incomeSummary = statistics.incomeSummary || 0;
 
-  // Calculate balance
   const balance = incomeSummary - expenseSummary;
 
-  // Skip the first item if it exists (assuming it's a total or header)
   const chartData = categoriesData.length > 0 ? categoriesData.slice(1) : [];
 
   const data = {
-    labels: [], // Remove labels
+    labels: [],
     datasets: [
       {
         data: chartData.map((category) => category.total),
@@ -59,7 +55,7 @@ const StatisticsChart = () => {
     cutout: "70%",
     plugins: {
       legend: {
-        display: false, // Hide legend
+        display: false,
       },
       tooltip: {
         callbacks: {
@@ -75,7 +71,6 @@ const StatisticsChart = () => {
     maintainAspectRatio: false,
   };
 
-  // Format balance for display
   const formatBalance = (number) => {
     if (!number && number !== 0) return "₺0.00";
     const prefix = number >= 0 ? "₺" : "-₺";

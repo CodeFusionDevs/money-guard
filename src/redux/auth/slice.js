@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCurrentUser, signup, login, logout } from "./operations";
 import { updateToken, clearToken } from "./operations";
-
+import { toast } from "react-toastify";
 const initialState = {
   user: {
     id: "",
-    name: "", // Tekrar kontrol et
+    name: "",
     email: "",
     balance: "",
   },
@@ -21,7 +21,6 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCurrentUser.fulfilled, (state, action) => {
-        console.log("getCurrentUser fulfilled:", action.payload);
         state.user = action.payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
@@ -31,7 +30,6 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
-        console.log("getCurrentUser rejected:", action.payload);
         state.isRefreshing = false;
         state.error = action.payload;
         state.user = {
@@ -40,12 +38,9 @@ const authSlice = createSlice({
           email: null,
           balance: null,
         };
-        state.token = null;
-        state.isLoggedIn = false;
-        clearToken();
       })
       .addCase(signup.fulfilled, (state, action) => {
-        console.log("signup fulfilled:", action.payload);
+        toast.success("Signup successful");
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
@@ -57,7 +52,7 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(signup.rejected, (state, action) => {
-        console.log("signup rejected:", action.payload);
+        toast.error("Signup failed");
         state.isRefreshing = false;
         state.error = action.payload;
         state.user = {
@@ -71,7 +66,7 @@ const authSlice = createSlice({
         clearToken();
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log("login fulfilled:", action.payload);
+        toast.success("Login successful");
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
@@ -83,7 +78,7 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(login.rejected, (state, action) => {
-        console.log("login rejected:", action.payload);
+        toast.error("Login failed");
         state.isRefreshing = false;
         state.error = action.payload;
         state.user = {
@@ -97,7 +92,7 @@ const authSlice = createSlice({
         clearToken();
       })
       .addCase(logout.fulfilled, (state) => {
-        console.log("logout fulfilled");
+        toast.success("Logout successful");
         state.user = {
           id: null,
           name: null,
@@ -112,7 +107,7 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(logout.rejected, (state, action) => {
-        console.log("logout rejected:", action.payload);
+        toast.error("Logout failed");
         state.isRefreshing = false;
         state.error = action.payload;
         state.user = {

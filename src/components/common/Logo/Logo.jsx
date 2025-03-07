@@ -5,7 +5,6 @@ const Logo = ({ type }) => {
   return (
     <div className={clsx(styles.logo, type === "header" && s.headerLogo)}>
       <img
-        // style={{ width, height, fontSize }}
         src="../../../../public/money-guard.svg"
         alt="Money Guard Logo"
       />

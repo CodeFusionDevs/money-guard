@@ -15,7 +15,6 @@ const StatisticsDashboard = () => {
     new Date().getFullYear().toString()
   );
 
-  // Generate month options
   const monthOptions = [
     { value: null, label: "All" },
     { value: "1", label: "January" },
@@ -32,19 +31,13 @@ const StatisticsDashboard = () => {
     { value: "12", label: "December" },
   ];
 
-  // Generate year options (current year and 5 years back)
+  
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from({ length: 6 }, (_, i) => ({
     value: String(currentYear - i),
     label: String(currentYear - i),
   }));
 
-  const handleSubmit = (values) => {
-    console.log("Filter values:", values);
-    // Handle filter submission logic here
-  };
-
-  // Custom styles for React Select
   const customSelectStyles = {
     control: (provided) => ({
       ...provided,
@@ -142,7 +135,6 @@ const StatisticsDashboard = () => {
             ),
             year: yearOptions.find((option) => option.value === selectedYear),
           }}
-          onSubmit={handleSubmit}
           enableReinitialize
         >
           {({ values, setFieldValue }) => (
