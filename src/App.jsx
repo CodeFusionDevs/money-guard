@@ -34,20 +34,29 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
-          element={<PrivateRoutes Component={<DashboardPage />} To="/login" />}
+          path="/money-guard/"
+          element={
+            <PrivateRoutes
+              Component={<DashboardPage />}
+              To="/money-guard/login"
+            />
+          }
         >
           <Route index element={<TransactionsList />} />
           <Route path="statistics" element={<StatisticsDashboard />} />
           <Route path="currency" element={<CurrencyTab />} />
         </Route>
         <Route
-          path="/login"
-          element={<RestrictedRoutes Component={<LoginPage />} To="/" />}
+          path="/money-guard/login"
+          element={
+            <RestrictedRoutes Component={<LoginPage />} To="/money-guard/" />
+          }
         />
         <Route
-          path="/register"
-          element={<RestrictedRoutes Component={<RegisterPage />} To="/" />}
+          path="/money-guard/register"
+          element={
+            <RestrictedRoutes Component={<RegisterPage />} To="/money-guard/" />
+          }
         />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
